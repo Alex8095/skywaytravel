@@ -1,0 +1,42 @@
+.comparing-list { font-size: 0.9em; }
+.comparing-list p { margin:0; padding:0; }
+  	.comparing-list .param-list { background:#FFF; padding:1px 0 16px 0; width: 195px; display: inline-block; float: left; }
+  	.comparing-list .header { height: 20px; line-height: 20px; }
+		.comparing-list .header a { }
+		.comparing-list .params {  }
+		.comparing-list .param-list .params  { padding:3px 0 0 0;  }
+		.comparing-list .param-list .properties { margin:15px 0 0 0!important;}
+		.comparing-list .params a, .comparing-list .params span { padding: 0 10px;}
+			.comparing-list .params .izobrazhenie { height: 155px; padding:0; }
+				.comparing-list .params .izobrazhenie img { width:150px; }
+			.comparing-list .params .kod { font-weight: bold; }
+				.comparing-list .params .properties { margin: 10px 0 0 0;}
+			.comparing-list .params a { display:block; height: 20px; line-height: 20px; text-decoration: none; color: #333333; }
+			.comparing-list .params a span { padding:0; background:none!important; float:right; border: none; margin: 0 0 0 5px; color:#333333; font-size: 0.8em; }
+			.comparing-list .params a span.sort { text-decoration: underline; }
+			.comparing-list .params a.span { color: #333333; cursor: text; }
+				.comparing-list .params a.span span { display: none; }
+			.comparing-list .params span {  display:block; height: 20px; line-height: 20px; border-bottom:1px solid #ededed; }
+			.comparing-list .params .kod a { font-weight: bold; }
+			.comparing-list .params span.ulitsa { height: 40px; line-height: 20px; }
+/*   	.comparing-list .item-list { width: 770px; display: inline-block; float: left; } 
+  		.comparing-list .item-list { background: #FFF;  }*/
+		.comparing-list .item-list .header { text-align: right; }
+  		.comparing-list .large { height: 50px!important; }
+	
+  		.comparing-list .item-list { background: #FFF; width: 745px overflow-x:auto; overflow-y:hidden; }
+  		.comparing-list .item-list-inner {}
+  		
+		
+  	#comparing-sort { width:1000px; list-style: inside; margin: 0; padding: 0; max-height:200px; padding: 0; margin: 0; }
+ 	#comparing-sort li.ui-state-default { font-size:1em; background:none; margin: 0 5px 0 0; display:inline; float: left; padding:0 0 0 4px; width: 150px!important; text-align: center; border:none;  }
+  	.bx-controls-direction { display: none;}
+  	#comparing-sort li.ui-sortable-helper { border:1px solid #C4C4C4; }
+  		
+  #comparing-sort { width:1000px; list-style: inside; margin: 0; padding: 0; height: 200px; max-height:200px; }
+  #comparing-sort li.ui-state-default { margin: 3px 3px 3px 0; padding: 1px; display:inline; float: left; width: 100px; height: 200px; font-size: 1em; text-align: center; }
+  .bx-controls-direction { display: none;}
+  
+  .comparing-list .slider-left { font-size:1.3em; color:#FFF; position:absolute; margin:-23px 0 0 0; text-decoration:none; font-weight:bold;  }
+ .comparing-list .slider-left:hover, .comparing-list .slider-rigth:hover { color:#dfdfdf; }
+ .comparing-list .slider-rigth { font-size:1.3em; color:#FFF; position:absolute; margin:-23px 0 0 755px; text-decoration:none; font-weight:bold;  }

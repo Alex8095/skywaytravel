@@ -1,0 +1,15 @@
+[10:24:41] 
+Произошла исключительная ситуация (ExceptionMySQL) при обращении к СУБД MySQL.
+Duplicate entry '105' for key 'PRIMARY'
+INSERT INTO pages_temp_mod
+								SET
+									pt_id 			= 105,
+									page_id  		= '500475316ef10',
+									temp_id 		= 176,
+									mod_id			= NULL,
+									pos				= 1,
+									parent_id		= 52,
+									pos_temp_id		= 1,
+									pt_is_cache		= NULL,
+									pt_val			= ''
+Ошибка в файле D:\apache\free.sites\onec.loc\site\dmn\ptm\template.data.retention.php в строке 39.

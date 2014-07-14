@@ -1,0 +1,35 @@
+#page-index-index .middle { width: 904px; height: 74px; margin: 0 auto 15px auto; background: url(http://img.alfabrok.ua/files/images/bg/middle-bg.png) 1px 2px no-repeat; }
+	#page-index-index .middle .ysearch { padding: 15px 0 0 19px!important; width: 527px;  }
+	#page-index-index .middle .middle .poisk-na-karte { width: 354px; height: 64px; line-height: 65px; font-size:1.2em; text-align:center; text-transform: uppercase; text-decoration: none; color: #2c2c2c;  }
+	/*#page-index-index .middle .new { float:right; margin:-4px 13px 0 0; display: block; width: 16px; height: 23px; background: url(http://img.alfabrok.ua/files/images/bg/middle-bg.png) -163px -87px no-repeat;  }*/
+	
+#page-poisk-nakarte { width:96%; margin: 0 2%; }
+	#page-poisk-nakarte .header-page, #page-poisk-nakarte .div-footer, #page-poisk-nakarte .bgPrev, #page-poisk-nakarte .bgNext, #page-poisk-nakarte .middle { display:none; }
+	#page-poisk-nakarte .main-menu { margin-top: 15px; }
+/*	w-3	*/
+.w-3 .main-menu a { color:#FFF; }
+.w-3 .main-menu a:hover, .w-3 .main-menu a.active { border-bottom:1px dotted  #FFF; }
+.w-3 .div-footer, .w-3 .div-footer .copy { color:#FFF; }
+.w-3 .div-footer a { color:#FFF!important; }
+.w-3 .div-footer a:hover, .w-3 .div-footer a.active { border-bottom:1px dotted  #FFF; }
+
+/*	w-4	*/
+.w-4 .main-menu a { color:#FFF; }
+.w-4 .main-menu a:hover, .w-4 .main-menu a.active { border-bottom:1px dotted  #FFF; }
+.w-4 .div-footer, .w-4 .div-footer .copy { color:#FFF; }
+.w-4 .div-footer a { color:#FFF!important; }
+.w-4 .div-footer a:hover, .w-4 .div-footer a.active { border-bottom:1px dotted  #FFF; }
+
+/*	w-4	*/
+.w-5 .main-menu a { color:#FFF; }
+.w-5 .main-menu a:hover, .w-5 .main-menu a.active { border-bottom:1px dotted  #FFF; }
+.w-5 .div-footer, .w-5 .div-footer .copy { color:#FFF; }
+.w-5 .div-footer a { color:#FFF!important; }
+.w-5 .div-footer a:hover, .w-5 .div-footer a.active { border-bottom:1px dotted  #FFF; }
+
+/*	w-6	*/
+.w-6 .main-menu a { color:#FFF; }
+.w-6 .main-menu a:hover, .w-6 .main-menu a.active { border-bottom:1px dotted  #FFF; }
+.w-6 .div-footer, .w-6 .div-footer .copy { color:#FFF; }
+.w-6 .div-footer a { color:#FFF!important; }
+.w-6 .div-footer a:hover, .w-6 .div-footer a.active { border-bottom:1px dotted  #FFF; }

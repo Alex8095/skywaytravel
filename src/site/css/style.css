@@ -1,0 +1,19 @@
+@import "base.css";
+@import "standarts.css";
+@import "body.css";
+@import "form.css";
+@import "page.css";
+@import "ymap.css";
+@import "ysearch.css";
+@import "immovables.css";
+@import "formsearch.css";
+@import "comparing.css";
+@import "page-fix.css";
+
+/*	jquery	*/
+@import "jquery-ui-1.8.4.custom.css";
+
+/*	zapatec	*/
+@import "css.zapatec/zpcal.css";
+@import "css.zapatec/template.css";
+@import "css.zapatec/winxp.css";

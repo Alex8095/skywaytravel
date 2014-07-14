@@ -1,0 +1,279 @@
+/* CSS Document */
+.y-map { margin-top: 5px; }
+.y-search-filter { }
+	.y-search-filter .search-filter { margin: 0; }
+		.y-search-filter .search-filter .style-4c3ec331811b6 { margin:0 0 10px 0; }
+			.y-search-filter .search-filter .style-4c3ec331811b6 .SearchFormAdvasedLabel { display: block; font-weight: bold; margin:0 0 5px 0; }
+			.y-search-filter .search-filter .style-4c3ec331811b6 .lMin {  margin: 6px 5px 0 0 }
+			.y-search-filter .search-filter .style-4c3ec331811b6 .lMax { margin: 6px 5px 0 0; }
+			.y-search-filter .search-filter .style-4c3ec331811b6 .fMin { width: 43px; height: 22px; background-position: -7px -23px; }
+			.y-search-filter .search-filter .style-4c3ec331811b6 .fMax { width: 43px; height: 22px; background-position: -7px -23px;  }
+		.y-search-filter .search-filter h3 { font-size: 1.2em; }
+			.y-search-filter .search-filter h3 .ui-icon { display: none; }
+			.y-search-filter .search-filter h3 a { color:#333333; font-weight: normal; }
+	#accYMapSearchTypeIm { margin: 0 0 10px; }
+	#accYMapSearchTypeIm .ui-widget-content { background:none; }
+	#accYMapSearchTypeIm .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { background:none; }
+	#accYMapSearchTypeIm .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { background:none; }
+	#accYMapSearchTypeIm .ui-accordion-header a { padding: 4px 0 3px 0; text-align: center; }
+	.y-search-filter .search-filter .ui-accordion-content { padding: 10px 0 5px!important; margin-top: 0!important; }
+	#accYMapSearchTypeIm .ui-widget-content { border:none!important; z-index: 1; }
+
+	.y-search-filter .search-filter .regionalBlock .no-items { cursor:pointer; color:#9b9b9b; display: block; font-weight: bold; margin: 0px 0px 5px; }
+	.y-search-filter .search-filter .regionalBlock .rlist label { font-size: 1.2em!important;}
+	.y-search-filter .search-filter .regionalBlock .reginalTree { margin: 0 0px 0px -10px!important; min-width: 172px;}
+
+	.y-search-filter .submit { font-size:1.2em; text-decoration:none; color:#000; display:block; margin:0 auto; background-position: -6px -42px; width: 142px; height: 28px; text-align: center; line-height: 28px; }
+	.y-search-filter .ui-widget-content { background: none!important; }
+	.y-search-filter .search-filter .dropdown { margin: 0 0 5px 0; }
+	.y-search-filter .search-filter .dropdown .DivSearchPosition {  position: absolute; z-index: 10; max-height: 120px; }
+	.y-search-filter .params { display: none; padding: 5px 0 0 0; }
+
+	
+	#accYMapSearchTypeIm h3 { margin:0; display:block; padding:0 0 10px; clear:both; }
+	#accYMapSearchTypeIm h3 a { display:block; border-bottom: 1px dashed #909090; float:left; text-decoration:none; color:#000000; clear:both; }
+	#accYMapSearchTypeIm h3:hover a, #accYMapSearchTypeIm h3.active a { border-bottom: 1px solid #FFF; }
+
+	.ymaps-b-balloon { width: 360px!important; /*height: 250px; 260px*/ }
+	.ymaps-b-cluster-carousel { margin: 0 30px 0 12px!important; /*230px*/  }
+	.ymaps-b-cluster-content__header { font-weight: bold; margin-bottom: 5px!important; }
+
+	.btn { padding:2px 10px!important; }
+	
+	.btn:first-child {
+}
+.btn {
+    border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+.btn:hover { background-color:#E6E6E6; background-position:0 -15px; transition: background-position 0.1s linear 0s; }
+.btn {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #F5F5F5;
+    background-image: linear-gradient(to bottom, #FFFFFF, #E6E6E6);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) #A2A2A2;
+    border-image: none;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0;
+    padding: 4px 12px;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+}
+	
+	.region-auto-search { position:absolute; z-index:300; margin:7px 0 0 120px; width:40%; }
+		.region-auto-search #region-auto-search-text { width:70%; height:20px; }
+		.region-auto-search .btn { margin: -3px 0 0 0}
+	
+	/*
+	.ymap-view { width: 280px;  }
+		.ymap-view p { font-size: 0.8em; }
+		.ymap-view .img { width: 120px;   }
+			.ymap-view .img .img img { width: 110px;  }
+
+		.ymap-view .im-code { font-weight:bold; width:106px; color: #353535; display: block; font-size:0.8em; padding: 0.1em 0.2em; margin: 0 0 2px 0; background: #e1dede; text-decoration: none; }
+
+		.ymap-view .price { margin: 0 0 5px 0; }
+		.ymap-view .price-grn { margin:0 0 2px 0; font-size: 0.9em; font-weight: bold; }
+		.ymap-view .price-usd { color: #3795f2; margin:0 0 5px 0; font-size: 0.9em; }
+		.ymap-view .price-msq { color:#818181; font-size: 0.75em; }
+
+		.ymap-view .info { width: 150px;  }
+		.ymap-view .info .street { margin: 0 0 1px; }
+		.ymap-view .info .street a { color: #1885F0; font-size: 0.8em; font-weight: normal; text-decoration: none; }
+		.ymap-view .info .city-area { color: #353535;    display: block;    font-size: 0.7em;    font-weight: bold;    margin: 0 0 1px;}
+		.ymap-view .info dl.param-list { margin: 0 0 1px 0; font-size: 0.8em; }
+			.ymap-view .info dl.param-list dt { color:#818181; float:left; width:90px; }
+			.ymap-view .info dl.param-list dd { padding:0 0 1px 0; color:#353535; margin: 0; }
+		.ymap-view .info .param-list-adviced { border: 0; font-size: 0.7em; }
+			.ymap-view .info .param-list-adviced .name { color:#818181; width:   }
+			.ymap-view .info .param-list-adviced .val {  padding:0 0 0 0; color:#353535; }
+		.ymap-view .info .type-category { color:#818181; font-size: 0.9em; margin: 5px 0 0; display: block; }
+	*/
+	.ymap-view { width: 240px;  font-size:0.9em; }
+		.ymap-view .main {}
+			.ymap-view .main .price-block { font-size: 1.0em; margin: 0 0 7px; font-weight:bold; }
+				.ymap-view .main .price-block dt { color: #818181; float: left;  padding:0 10px 0 0; }
+				.ymap-view .main .price-block dd { color: #353535; margin: 0; padding: 0 0 3px;	}
+				.ymap-view .main .price-block dd.price-usd { color: #3795F2; }
+				 
+				.ymap-view .main .price-block .price-msq-grn { font-size:0.8em; }
+				.ymap-view .main .price-block .price-msq-usd { font-size:0.8em; }
+				 
+		.ymap-view .img {}
+			.ymap-view .img img {}
+			
+			.ymap-view .info { margin:5px 0 5px; }
+				.ymap-view .info .street { margin: 0 0 1px; }
+				.ymap-view .info .street a { color: #1885F0; font-size: 1em; font-weight: normal; text-decoration: none; }
+				.ymap-view .info .city-area { color: #353535;    display: block;   font-size: 1em;   font-weight: bold;    margin: 0 0 1px;}
+	
+				.ymap-view .info .under-photo { width:50%; }
+					.ymap-view .info .under-photo .city-area {}
+					.ymap-view .info .under-photo .im-code { margin:3px 0; background: none repeat scroll 0 0 #E1DEDE; color: #353535; display: block; float: left; padding: 3px 5px; clear:both; text-decoration: none; }
+					.ymap-view .info .under-photo .panorama { font-size:0.8em; }
+						.ymap-view .info .under-photo .panorama span { display:none; }
+					
+				.ymap-view .street	{ font-size:0.8em }
+					 
+				.ymap-view .info .prop {  width:50%; }
+					.ymap-view .info .prop .properties-view { margin: 0 0 1px 0; font-size: 0.9em; }
+					.ymap-view .info .prop .properties-view .param-list { margin: 0 0 2px 0; }
+					.ymap-view .info .prop .properties-view dt { color:#818181; float:left; width:90px; }
+					.ymap-view .info .prop .properties-view dd { padding:0 0 1px 0; color:#353535; margin: 0; }
+			
+					.ymap-view .info .info-details { margin:5px 0 0 0; }
+					.ymap-view .info .info-details .param-list-adviced { font-size:0.85em; }
+					.ymap-view .info .param-list-adviced .name { color:#818181; width:50%;   }
+					.ymap-view .info .param-list-adviced .val {  padding:0 0 0 0; color:#353535; }
+			
+					.ymap-view  .info-details .properties-view .h { display:none; }
+	
+	.ymaps-b-cluster-carousel__body .ymap-view { font-size:1em; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.DivYMapPageFull { width:100%; z-index: 400; position:absolute; top:0px;  left:0; background:#FFF; padding-bottom:10px; }
+.TableIndexPagefull { width:96%!important; margin-left:2%;}
+/*	*/
+#divYSearchAdress { background: #808080; padding:8px 10px;}
+	#divYSearchAdress p { margin:0; color:#FFF}
+	/*#divYSearchAdress .help {}*/
+	#formYSearchAdress { margin:2px 0 }
+		#fieldYSearchAdress { width:915px; padding:3px 0; border:1px solid #808080}
+		#btmYSearchAdress { padding:3px; cursor:pointer; background:url("http://img.alfabrok.ua/files/images/bg/jq/ui-bg_highlight-hard_50_ebb923_1x100.png") repeat-x scroll 50% 50% transparent; color:#FFF; border:0; }
+	/*#divYSearchAdress .example {}	*/
+/*	*/
+.YMapTitle { color: #808080; margin: 10px 0 10px; padding: 0 0 0 0; float:left}
+#yLoading { position: absolute; z-index: 500; width: 150px; height: 26px; background: #FFF url(http://img.alfabrok.ua/files/images/preloader/ajax-loader.gif) center center no-repeat;  display: none; margin-left: 225px; }	
+/*#TdYMap {}*/
+
+a.hideFullScreen { float:right; display:block; margin:15px 5px 0 0; display:none }
+a.showFullScreen { padding: 2px 3px 3px 3px;  text-decoration: none; border:1px solid #FFF; background:#808080; color:#FFF; margin:3px 0 3px; display:block; width:127px; font-size:13px;    }
+a.showFullScreen span { display:block; height: 16px; width: 16px; position: relative;  background-position: -16px -80px; float:left; background-image: url(http://img.alfabrok.ua/files/images/bg/jq/ui-icons_ffffff_256x240.png); overflow: hidden; text-indent: -99999px; margin:2px 3px -1px 0;  }
+a.showFullScreen:hover { border:1px solid #808080}
+
+span.clean { color:#3A7BEE; padding: 2px 3px 0px 3px;  text-decoration: none; border-bottom:1px dotted #3A7BEE; margin:3px 0 3px; display:block; width:220px; font-size:13px;    }
+span.clean span { display:block; height: 16px; width: 16px; position: relative;  background-position: -64px -80px; float:left; background-image: url(http://img.alfabrok.ua/files/images/bg/jq/ui-icons_2e83ff_256x240.png); overflow: hidden; text-indent: -99999px; margin-right:3px;  }
+
+#hideHelp { color:#3A7BEE; padding: 2px 3px 0px 3px;  text-decoration: none; border-bottom:1px dotted #3A7BEE; margin:3px 0 3px; display:block; width:130px; font-size:13px;    }
+#hideHelp span { display:block; height: 16px; width: 16px; position: relative;  background-position: -48px -144px; float:left; background-image: url(http://img.alfabrok.ua/files/images/bg/jq/ui-icons_2e83ff_256x240.png); overflow: hidden; text-indent: -99999px; margin:0 3px -1px 0;  }
+#showHelp { color:#3A7BEE; padding: 2px 3px 0px 3px;  text-decoration: none; border-bottom:1px dotted #3A7BEE; margin:3px 0 3px; display:block; width:140px; font-size:13px; display:none     }
+#showHelp span { display:block; height: 16px; width: 16px; position: relative;  background-position: -48px -144px; float:left; background-image: url(http://img.alfabrok.ua/files/images/bg/jq/ui-icons_2e83ff_256x240.png); overflow: hidden; text-indent: -99999px; margin:0 3px -1px 0; }
+
+#hideInfra { color:#3A7BEE; padding: 2px 3px 0px 3px;  text-decoration: none; border-bottom:1px dotted #3A7BEE; margin:3px 0 3px; display:block; width:165px; font-size:13px; display:none    }
+#hideInfra span { display:block; height: 16px; width: 16px; position: relative;  background-position: 0 -112px; float:left; background-image: url(http://img.alfabrok.ua/files/images/bg/jq/ui-icons_2e83ff_256x240.png); overflow: hidden; text-indent: -99999px; margin:0 3px -1px 0;  }
+#showInfra { color:#3A7BEE; padding: 2px 3px 0px 3px;  text-decoration: none; border-bottom:1px dotted #3A7BEE; margin:3px 0 3px; display:block; width:175px; font-size:13px;     }
+#showInfra span { display:block; height: 16px; width: 16px; position: relative;  background-position: 0 -112px; float:left; background-image: url(http://img.alfabrok.ua/files/images/bg/jq/ui-icons_2e83ff_256x240.png); overflow: hidden; text-indent: -99999px; margin:0 3px -1px 0; }
+
+
+span.clean, #hideHelp, #showHelp, #showInfra, #hideInfra { cursor:pointer; color: #3A7BEE}
+span.clean:hover, #hideHelp:hover, #showHelp:hover, #showInfra:hover, #hideInfra:hover { color: #EBB923}
+
+/*	*/
+#indexYMap { border:1px solid #808080}
+/*	*/
+#TdYMapForm { width:250px; border:1px solid #B7B8BC; padding:0 10px 10px 10px}
+	#TdYMapForm hr { color:#B7B8BC; background:#B7B8BC; border: none; height:1px; margin-top:10px; }
+	#TdYMapForm .title{ color: #808080; margin: 5px 0 0; padding: 0 0 0 0;}
+	#TdYMapForm .RealEstateAds{ margin:10px 0 5px 0; font-weight:bold; color:#808080}
+	
+	#TdYMapForm .link{ display:block;}
+		#CountSearchIm { margin:0 0 5px 0; font-weight:bold; color:#EBB923; display:none; }
+	/*#formYMapSearch {}*/
+		#formYMapSearch .fDiv { margin-top:5px; }
+			.lName { display:block; margin-bottom:2px;} 
+			.lMin { width:20px; margin-right:5px; float:left;}
+		 	.fMin { width:70px; float:left; margin-right:10px; border: 1px solid #D5D5D5; font-size:11px; padding:2px;}
+
+			
+			/*#accPosImLinkFlat {}
+				#accPosImLinkFlat .ui-icon-ymap-arrow-s{}
+				#accPosImLinkFlat .ui-icon-ymap-arrow-e{}
+			#accPosImLinkCommercial {}
+				#accPosImLinkCommercial .ui-icon-ymap-arrow-s{}
+				#accPosImLinkCommercial .ui-icon-ymap-arrow-e{}
+			#accPosImLinkHome {}
+				#accPosImLinkHome .ui-icon-ymap-arrow-s{}
+				#accPosImLinkHome .ui-icon-ymap-arrow-e{}
+			#accPosImLinkBuildings {}
+				#accPosImLinkBuildings .ui-icon-ymap-arrow-s{}
+				#accPosImLinkBuildings .ui-icon-ymap-arrow-e{}
+			#accPosImLinkLand { }
+				#accPosImLinkLand .ui-icon-ymap-arrow-s{}
+				#accPosImLinkLand .ui-icon-ymap-arrow-e{}
+			#btmYMapSearch { display:block; padding:5px 5px; margin:0 0 10px 0;  font-size:14px; text-align:center; text-decoration:none; cursor:pointer; background:url("http://img.alfabrok.ua/files/images/bg/jq/ui-bg_highlight-hard_50_ebb923_1x100.png") repeat-x scroll 50% 50% transparent; color:#FFF; border:0; }
+	*/
+	
+	.yTable { font-size:12px; width:255px;}
+	.yTable td { text-align:left}
+	.yTableTdImg { width:165px; }
+	.yTableTdImg img { width:160px;}
+	.yImProp img { width:40px; }
+	.yTable p { margin:0 0 0 0; padding:0; line-height:14px;}
+	/*.yTable	.yImSI {}*/
+	.yTable	.yImSI span { color:#666}
+	/*.yTable	.yImTitle {}
+	.yTable	.yImPrice {}
+	.yTable	.yImPrice span{}*/
+	.yTable	.yImPrice .ImSpanPrice { display:block; width:auto!important; background:none; font-size:12px; line-height:15px; font-weight:bold; padding:0!important; text-align:left; color:#EBB923}
+	.yTable .yImPriceM { display:block; width:auto!important; background:none; font-size:11px; font-weight:bold; padding:0!important; text-align:left; color:#EBB923}
+	.yTable .yImPriceD { display:block; width:auto!important; background:none; font-size:11px; font-weight:bold; padding:0!important; text-align:left; color:#EBB923}
+	.yTable .yImPriceM span { color:#666; font-weight:normal}
+	.yTable .yImPriceD span { color:#666; font-weight:normal}
+	.yTable	.yImAdress { color:#666; padding:5px 0 0 0; }
+
+	.yGroupIm .yTable { margin-bottom:5px; border-bottom:1px solid #dfdfdf; width: 225px; }
+	.yGroupIm .yImLink { padding-bottom: 4px;}
+	
+	.AYReadMore, .AYPanorama { display: inline-block; margin: 0 0; }
+	/*.AYPanorama:hover span {  background-image: url(http://img.alfabrok.ua/files/images/bg/yPanorama.png); background-position: 0 0!important; }*/
+	.AYReadMore { margin-top: 5px;}
+/*	.YMaps-b-balloon-content {width:270px!important;}
+/*	*/
+#YHelp { position:absolute; z-index:399; }
+	#YHelpTypeObject { margin:20px; padding:20px; background:#fff; display:none }
+	#YHelpTypeObject .title{ color:#808080; margin:0 0 10px 0; padding:0; font-size:18px;  }
+	#YHelpTypeObject .list{ font-size:11px;}
+	#YHelpTypeObject .list .pos{ display:inline-block; width:120px; float:left; margin-right:4px;}
+	#YHelpTypeObject .list .pos a{ display:block; margin:0 0 5px 0; font-size:12px; }
+	#YHelpTypeObject .list .pos p{ line-height:13px}
+/*	
+	#aShowPanorama { color:#FFF; text-decoration:none; cursor:pointer; position:absolute; z-index:500; margin:5px 0 -35px 105px; display:block; width:80px; padding:4px 3px; background: url("http://img.alfabrok.ua/files/images/bg/jq/ui-bg_highlight-hard_50_ebb923_1x100.png") repeat-x scroll 50% 50% transparent; border:1px solid #999;  }
+	#aShowPanorama span { margin:1px 3px -2px 0} 
+	#aShowPanorama:hover { text-decoration:none;  border:1px solid #666;  }
+*/

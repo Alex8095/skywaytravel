@@ -1,0 +1,55 @@
+.form-lii {}
+.form-lii label { display: inline-block;}
+.form-lii input[type="text"] { padding: 2px; margin-bottom: 2px; }
+
+.form-i-black { background-position: -147px -55px; width: 148px; height: 21px; }
+.form-i-gray-m { background-position: -62px -24px; width: 37px; height: 22px; }
+
+.form-i-gray-m-s { background-position: -7px -86px; width: 60px; height: 22px; font-size: 9.5pt; }
+.form-i-gray-m-p { background-position: -77px -86px; width: 70px; height: 22px; font-size: 9.5pt; }
+
+input[type="checkbox"] { border :none; background: #000; }
+.zpFormWinxp .errOutput { font-size:0.7em!important; padding:5px 10px!important}
+
+.form-block { }
+	.form-block form { margin: 15px 15px; font-size: 0.9em; }
+
+.mail-form {}
+	.mail-form input { width:250px; }
+
+#FormAlertIsOk { display: none; }
+
+
+.addobject-form-properties {}
+	.addobject-form-properties .style-4c3ec1f67fe11 { margin: 0 0 0 10px; }
+	.addobject-form-properties .style-4c3ec1f67fe11 .zpFormInternalEl { display: none;}
+	.addobject-form-properties .style-4c3ec1f67fe11 .zpFormError { display: none; }
+	.addobject-form-properties .style-4c3ec1f67fe11 .SearchFormAdvasedLabel { margin: 0 0 0 10px;}
+
+	.addobject-form-properties .style-4c3ec1f67fe1b .SearchFormAdvasedLabel { width: 200px; display: inline-block; }
+	
+	.addobject-form-properties .style-4c3ec331811b6 .SearchFormAdvasedLabel {  width: 235px; display: inline-block; }
+	.addobject-form-properties .style-4c3ec331811b6 .input-from {}
+	.addobject-form-properties .style-4c3ec331811b6 .label-to {}
+	.addobject-form-properties .style-4c3ec331811b6 .zpFormError { display: none; }
+	
+	.addobject-form-properties .item-4c400ea1b5657 { display: none; }
+	.addobject-form-properties .item-4c6041d795e80 { display: none; }
+	
+	.addobject-form-properties .dropdown  { margin: 0 0 0 15px; }
+	.addobject-form-properties .SearchFormLabelList .ui-icon { margin: -16px 0 0 -10px; }
+	.addobject-form-properties .dropdown .DivSearchPosition { min-width: 400px; }
+	.addobject-form-properties .dropdown .zpFormInternalEl { display: none; }
+	.addobject-form-properties .dropdown .zpFormError { display: none; }
+	.addobject-form-properties label { margin: 0 0 0 10px; }
+	
+	.addobject-form-properties .style-4c3ec331811b8 .zpFormInternalEl { display: none!important; }
+	.addobject-form-properties .style-4c3ec331811b8 .zpFormError { display: none!important; }
+	.addobject-form-properties .style-4c3ec331811b8 .SearchFormAdvasedLabel { width: 200px; display: inline-block; }
+	
+	
+	.addobject-form-properties .style-4c3ec3ad35af9 .SearchFormAdvasedLabel { width: 160px; display: inline-block; }
+
+.addobject-form-properties .zpFormLabel { width: 14em!important; }
+
+.addobject-form-images .multipleButton { display: none!important; }
