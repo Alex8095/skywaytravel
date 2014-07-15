@@ -1,0 +1,32 @@
+<?php if ($Data) : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<td width="10"></td>
+		<td>Login</td>
+		<td>Email</td>
+		<td>Name</td>
+		<td>Phone</td>
+		<td>Activity</td>
+		<td>Date registration</td>
+		<td></td>
+	</tr>
+	<tbody>
+		<?php foreach ( $Data as $key => $value ) : ?>
+		<tr>
+			<td width="10"><?php echo $value["user_id"]?></td>
+			<td><?php echo $value["user_login"]?></td>
+			<td><?php echo $value["user_email"]?></td>
+			<td><?php echo $value["user_fio"]?></td>
+			<td><?php echo $value["user_phone_mobile"]?></td>
+			<td><?php echo $value["user_activity"]?></td>
+			<td><?php echo $value["user_regdate"]?></td>
+			<td width="100"><a href="#" onclick="TEdit('DMN_Users', 'getUser', <?php echo $value["user_id"]?>)" title="edit">Edit/View</a> <a href="#" onclick="TDelete('DMN_Users', 'delete', <?php echo $value["user_id"]?>)" title="Delete">Delete</a></td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php else: ?>
+<b>No data!</b>
+<?php endif; ?>
+
+

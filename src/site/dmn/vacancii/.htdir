@@ -1,0 +1,4 @@
+Вакансии
+false
+TShowPage('DMN_Vacancii', 'getPage')
+true

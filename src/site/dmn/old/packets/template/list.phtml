@@ -1,0 +1,14 @@
+<?php if(count($Data) > 0):?>
+<div class="fieldset">
+	<h2 class="legend">Package</h2>
+	<div class="list-package">
+	<?php foreach ($Data as $key => $value): ?>
+		<div class="item">
+			<p><?php echo $value["name"]?></p>
+			<input type="checkbox" name="list-package" value="<?php echo $value["p_id"]?>"> 
+		</div>
+	<?php endforeach;?>
+	<div class="clear"></div>
+	</div>
+</div>
+<?php endif;?>

@@ -11,9 +11,9 @@
  */
 //$dblocation = 'localhost';
 $dblocation = 'localhost';
-$dbname = "alfabrok";
-$dbuser = "u_alfabrok";
-$dbpasswd = "jb1qli0O";
+$dbname = "skywaytravel_db";
+$dbuser = "www";
+$dbpasswd = "www";
 
 // Устанавливаем соединение с базой данных
 $dbcnx = mysql_connect ( $dblocation, $dbuser, $dbpasswd );

@@ -1,0 +1,22 @@
+<?php if ($Data) : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<td width="10"></td>
+		<td width="150">City</td>
+		<td></td>
+	</tr>
+	<tbody>
+		<?php foreach ( $Data as $key => $value ) : ?>
+			<tr>
+				<td width="10"><?php echo $value["cc_id"]?></td>
+				<td width=""><?php echo $value["cc_name"]?></td>
+				<td width="50"><a href="#" onclick="deleteCity('DMN_Places_CC', 'deleteCity', <?php echo $value["cc_id"]?>, <?php echo $value["parent_id"]?>)" title="Delete">Delete</a></td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php else: ?>
+<b>No data!</b>
+<?php endif; ?>
+
+

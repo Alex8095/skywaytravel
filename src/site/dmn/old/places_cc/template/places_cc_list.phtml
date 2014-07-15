@@ -1,0 +1,35 @@
+<?php if (count($Data) > 0) : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<td width="10"></td>
+		<td width="150">Country</td>
+		<td width="">Citys</td>
+		<td></td>
+	</tr>
+	<tbody>
+		<?php foreach ( $Data as $key => $value ) : ?>
+			<?php if($value["cc_type"] == "country"):?>
+			<tr>
+				<td width="10"><?php echo $value["cc_id"]?></td>
+				<td width=""><?php echo $value["cc_name"]?></td>
+				<td width="">
+					<?php foreach ($Data as $ckey => $cvalue):?>
+						<?php if($cvalue["parent_id"] == $value["cc_id"]):?>
+							<?php echo $cvalue["cc_name"]?><span>; </span>
+						<?php endif;?>
+					<?php endforeach;?>
+				</td>
+				<td width="70">
+					<a href="#" onclick="TEdit('DMN_Places_CC', 'getCountry', <?php echo $value["cc_id"]?>)" title="edit">Edit</a> 
+					<a href="#" onclick="TDelete('DMN_Places_CC', 'delete', <?php echo $value["cc_id"]?>)" title="Delete">Delete</a>
+				</td>
+			</tr>
+			<?php endif;?>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php else: ?>
+<b>No data!</b>
+<?php endif; ?>
+
+

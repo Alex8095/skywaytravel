@@ -1,0 +1,4 @@
+﻿Бренды
+false
+TShowPage('DMN_Brends', 'getBrendPage')
+true

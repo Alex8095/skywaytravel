@@ -1,0 +1,111 @@
+<?php 
+define ( 'SLASH', '/' );
+define ( 'DOC_ROOT', $_SERVER ['DOCUMENT_ROOT'] );
+require_once DOC_ROOT . '/dmn/utils/template.ajax/js2.css.php';
+global $tbl;
+//формирование стран и городов
+$dictionaries = new dictionaries ( );
+$dictionaries->buid_dictionaries_list ( $tbl ['list_dict'] ['name'] );
+$dictionaries->buid_dictionaries ( $tbl ['dict'] ['name'], "WHERE lang_id = {$_COOKIE['lang_id']} ORDER BY dict_name ASC" );
+$dictionaries->do_dictionaries ( 21 );
+$typeImages = $dictionaries->my_dct;
+?>
+
+<script type="text/javascript">
+var id = "<?php echo ($Data ['ct_id'] ? $Data ['ct_id'] : "")?>";
+$(function() {
+	$("#tabs").tabs();
+	if(id == "") {
+		$("#li-tabs-2").hide();
+	}
+});
+</script>
+<script type="text/javascript" src="../brends/js/action.js"></script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPage('DMN_Brends', 'getBrendPage')" class="ui-state-default ui-corner-all bottom-padding" title="Назад" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>Назад</a> 
+</div>
+<div id="ParentCtId" style="display: none;"><?php echo $Data ['ct_id'];?></div>
+<div style="margin:0 10px;">
+	<div id='errOutputGood' class="errOutputGood"></div>
+	<div id='errOutput' class="errOutput"></div>
+	<div id="tabs">
+		<ul>
+	    	<li><a href="#tabs-1">Бренд</a></li>
+	    	<li id="li-tabs-2"><a href="#tabs-2">Изображения</a></li>
+	    	<li id="li-tabs-3"><a href="#tabs-3">Статьи</a></li>
+	    	<li id="li-tabs-4"><a href="#tabs-4">Коллекции</a></li>
+	    </ul>
+	    <div id="tabs-1">
+	    	<script type="text/javascript">
+				new Zapatec.Form({
+					form: 'DataForm',
+					showErrors: 'afterField',
+					showErrorsOnSubmit: true,
+					submitErrorFunc: testErrOutput,
+					asyncSubmitFunc: OnSuccessDataForm,
+					theme: "WinXP"
+				});
+			</script>
+	 		<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Catalog&action=save&dataType=json" id='DataForm' name='DataForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<label class='zpFormLabel'>Название бренда</label> 
+					<input class='zpFormRequired' value="<?php echo $Data ['ct_name']; ?>" size="40" name="ct_name" type="text"> <br />
+					<label class='zpFormLabel'>Ссылка на сайт</label> 
+					<input class='zpFormUrl' value="<?php echo $Data ['ct_title']; ?>" size="40" name="ct_title" type="text"> <br />
+					<label class='zpFormLabel'>Позиция</label> 
+					<input value="<?php echo $Data ['pos']; ?>" name="pos" type="text" class="zpForm zpFormInt" /> <br />
+				</fieldset>
+				<fieldset>
+					<legend>Мета данные</legend>
+					<label class='zpFormLabel'>Ссылка</label> 
+					<input class='zpForm' value="<?php echo $Data ['ct_url']; ?>" size="40" name="news_url" type="text"> <br />
+					<label class='zpFormLabel'>Веб заголовок</label> 
+					<input class='zpForm' value="<?php echo $Data ['ct_w_title'];?>" size="40" name="ct_w_title" type="text"> <br />
+					<label class='zpFormLabel'>Веб ключевые слова</label> 
+					<input class='zpForm' value="<?php echo $Data ['ct_w_keywords'];?>" size="40" name="ct_w_keywords" type="text"> <br />
+					<label class='zpFormLabel'>Веб описание</label> 
+					<input class='zpForm' value="<?php echo $Data ['ct_w_description'];?>" size="40" name="ct_w_description" type="text"> <br />
+				</fieldset>
+				<fieldset>
+					<label class='zpFormLabel'>Отображать</label> 
+					<input class='zpForm' value="1" <?php echo ($Data ['hide'] ? ' checked="checked" ' : ''); ?> size="40" name="hide" type="checkbox"> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($Data ['ct_id'] ? $Data ['ct_id'] : "") ;?>" size="13" name="ct_id" type="hidden"> 
+				<input class='zpForm' value="<?php echo ($Data ['ct_id'] ? "edit" : "new") ;?>" size="13" name="type_save" type="hidden"> 
+				<input class='zpForm' value="1000000000000" size="13" name="parent_id" type="hidden"> 
+				<input class='zpForm' value="4d3c421816e39" size="13" name="dict_id" type="hidden"> 
+				<input value="Сохранить" name="Submit" onClick="" type="submit" class="button" /> 
+			</form>
+	  </div>
+	  <div id="tabs-2">
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Catalog&action=saveOneImage&dataType=html" enctype="multipart/form-data" id='imageForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<input class='zpForm' type="file" name="image" id="image"><br/>
+					<label class='zpFormLabel'>Тип изображения</label> <br />
+					<select onChange="changeMainImageBrend();" name="ct_photo_type_id" id="brend_ct_photo_type_id" class="zpFormRequired">
+						<?php echo sel_parent_id ( $typeImages, '', 'dict_id', 'dict_name' ); ?>
+					</select>
+					<br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($Data ['ct_id'] ? $Data ['ct_id'] : "") ;?>" size="13" name="ct_id" id="imageForm-ct_id" type="hidden"> 
+				<input type="hidden" name="is_small" value="false" />
+				<input type="hidden" name="is_main" id="brend_is_main" value="" />
+				<button style="" onclick="SaveImage('DMN_Catalog', 'saveGalleryImage')" class="" type="button" id=""><span>Сохранить</span></button>
+			</form>
+			<div style="margin-top:20px; " id="images-list">
+				<?php if($Data ['ct_id']) { echo Controller::Template("/dmn/catalog/template/listphotos.phtml", array ('Data' => $ImageData, 'folder' => 'ct_photos' )); } ?>
+			</div>
+		</div>
+		<div id="tabs-3">
+			<div id="BrandListArticles">
+				<?php echo $DataArticles;?>
+			</div>
+		</div>
+		<div id="tabs-4">
+			<div id="BrandListCollections">
+				<?php echo $DataCollection;?>
+			</div>
+		</div>
+	</div>
+</div>            
+

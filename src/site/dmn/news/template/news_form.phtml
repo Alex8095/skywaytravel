@@ -1,0 +1,160 @@
+<?php 
+define ( 'SLASH', '/' );
+define ( 'DOC_ROOT', $_SERVER ['DOCUMENT_ROOT'] );
+require_once DOC_ROOT . '/dmn/utils/template.ajax/js2.css.php';
+global $tbl;
+//формирование стран и городов
+$dictionaries = new dictionariesClass ( );
+$dictionaries->buid_dictionaries_list ( $tbl ['list_dict'] ['name'] );
+$dictionaries->buid_dictionaries ( $tbl ['dict'] ['name'], "WHERE lang_id = {$_COOKIE['lang_id']} ORDER BY dict_name ASC" );
+$dictionaries->do_dictionaries ( 84 );
+$typeImages = $dictionaries->my_dct;
+?>
+
+<script type="text/javascript">
+var newsId = "<?php echo ($NewsData ['news_id'] ? $NewsData ['news_id'] : "")?>";
+$(function() {
+	$("#tabs").tabs();
+	
+	if(newsId == "") {
+		$("#li-tabs-2").hide();
+		$("#li-tabs-3").hide();
+	}
+});
+</script>
+<script type="text/javascript" src="../news/js/action.js"></script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPage('DMN_News', 'getPage')" class="ui-state-default ui-corner-all bottom-padding" title="Назад" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>Назад</a> 
+</div>
+<div style="margin:0 10px;">
+	<div id='errOutputGood' class="errOutputGood"></div>
+	<div id='errOutput' class="errOutput"></div>
+	<div id="tabs">
+		<ul>
+	    	<li><a href="#tabs-1">Новость</a></li>
+	    	<li id="li-tabs-2"><a href="#tabs-2">Изображения</a></li>
+	    	<li id="li-tabs-3"><a href="#tabs-3">Галерея</a></li>
+	    </ul>
+	    <div id="tabs-1">
+	    	<script type="text/javascript">
+				new Zapatec.Form({
+					form: 'NewsForm',
+					showErrors: 'afterField',
+					showErrorsOnSubmit: true,
+					submitErrorFunc: testErrOutput,
+					asyncSubmitFunc: OnSuccessNewsForm,
+					theme: "WinXP"
+				});
+			</script>
+	 		<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_News&action=saveNews&dataType=json" id='NewsForm' name='NewsForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<label class='zpFormLabel'>Заголовок</label> 
+					<input class='zpFormRequired' value="<?php echo $NewsData ['news_title']; ?>" size="40" name="news_title" type="text"> <br />
+					<label class='zpFormLabel'>Краткое описание</label> <br />
+					<textarea class='zpForm' rows="10" cols="10" name="news_description"><?php echo $NewsData ['news_description']; ?></textarea><br /> 
+					<label class='zpFormLabel'>Подробное описание</label> <br /> 
+					<textarea class='zpForm' rows="10" cols="10" name="news_summary"><?php echo $NewsData ['news_summary']; ?></textarea><br /> 
+					<label class='zpFormLabel'>Позиция</label> 
+					<input class='zpForm zpFormInt' value="<?php echo $NewsData ['pos']; ?>" size="40" name="pos" type="text"> <br />
+				</fieldset>
+				<fieldset>
+					<legend>Веб</legend>
+					<label class='zpFormLabel'>Ссылка</label> 
+					<input class='zpForm' value="<?php echo $NewsData ['news_url']; ?>" size="40" name="news_url" type="text"> <br />
+					<label class='zpFormLabel'>Заголовок</label> 
+					<input class='zpForm' value="<?php echo $NewsData ['news_w_title']; ?>" size="40" name="news_w_title" type="text"> <br />
+					<label class='zpFormLabel'>Описание</label> 
+					<input class='zpForm' value="<?php echo $NewsData ['news_w_description']; ?>" size="40" name="news_w_description" type="text"> <br />
+					<label class='zpFormLabel'>Ключевые слова</label> 
+					<input class='zpForm' value="<?php echo $NewsData ['news_w_keywords']; ?>" size="40" name="news_w_keywords" type="text"> <br />
+				</fieldset>
+				<fieldset>
+					<label class='zpFormLabel'>Тип новости</label> 
+					<select name="type_id" id="type_id"  class="zpFormRequired">
+						<option value="">Не выбрано</option>
+						<?php echo sel_parent_id ( $newsTypeDict, $NewsData ['type_id'], 'dict_id', 'dict_name' ); ?>
+					</select>
+				</fieldset>
+				<fieldset>
+					<label class='zpFormLabel'>Отображать</label> 
+					<input class='zpForm' value="1" <?php echo ($NewsData ['hide'] == "show" ? ' checked="checked" ' : ''); ?> size="40" name="hide" type="checkbox"> <br /><br />
+					<label class='zpFormLabel'>Отображать на главной</label> 
+					<input class='zpForm' value="1" <?php echo ($NewsData ['is_show_index'] ? ' checked="checked" ' : ''); ?> size="40" name="is_show_index" type="checkbox"> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($NewsData ['news_id'] ? $NewsData ['news_id'] : "") ;?>" size="13" name="news_id" type="hidden"> 
+				<input class='zpForm' value="<?php echo ($NewsData ['news_id'] ? "edit" : "new") ;?>" size="13" name="type_save" type="hidden"> 
+				<input value="Сохранить" name="Submit" onClick="" type="submit" class="button" /> 
+			</form>
+		  </div>
+		  <div id="tabs-2">
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_News&action=saveOneImage&dataType=html" enctype="multipart/form-data" id='imageForm' class="zpFormWinXP" method="POST">
+					<fieldset>
+						<input class='zpForm' type="file" name="image" id="image">
+						<br />
+						<label class='zpFormLabel'>Тип изображения</label>
+						<select onChange="changeMainImage();" name="ct_photo_type_id" id="image_ct_photo_type_id" class="zpFormRequired">
+							<?php echo sel_parent_id ( $typeImages, '', 'dict_id', 'dict_name' ); ?>
+						</select>
+						<br />
+					</fieldset>
+					<input class='zpForm' value="<?php echo ($NewsData ['news_id'] ? $NewsData ['news_id'] : "") ;?>" size="13" name="ct_id" id="imageForm-news_id" type="hidden"> 
+					<input type="hidden" name="is_small" value="false" />
+					<input type="hidden" name="folder" value="news"/>
+					<input type="hidden" name="is_main" id="is_main" value="0" />
+					<button style="" onclick="SaveImage('DMN_Catalog', 'saveGalleryOneImage')" class="" type="button" id=""><span>Сохранить</span></button>
+			</form>
+			<div style="margin-top:20px;" id="images-list">
+					<?php if($NewsData ['news_id']) { echo Controller::Template("/dmn/news/template/listphotos.phtml", array ('Data' => $ImageData )); } ?>
+			</div>
+		</div>
+	  	<div id="tabs-3">
+	  		<script type="text/javascript">
+				var iInput = 1;
+				function appendNext() {
+					$("#otherMultipleInside").append("<div class=\"zpFormMultipleInside\">" + $("#firstMultipleInside").html().replace('name="file"', 'name="file-' + iInput +'"').replace('name="ct_photos_ru"', 'name="ct_photos_ru-' + iInput +'"').replace('name="ct_photos_en"', 'name="ct_photos_en-' + iInput +'"') + "</div>");
+					iInput = iInput + 1;
+				}
+				$(document).ready(function() {
+					$("#firstMultipleInside .multipleButton").val("<?php echo $arWords['form_multiple_bottom'];?>");
+					$(".multipleButton").click(function () {
+						$(".multipleButton").each(function() {
+							if($(this).val() == "-") {
+								$(this).hide();	
+							}
+						});
+						$(".item").last().val("");
+					});
+				});
+			</script>
+	  	
+	  		<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_News&action=saveGalleryImages&dataType=html" enctype="multipart/form-data" id='imageGalleryForm' class="zpFormWinXP" method="POST">
+	  			<fieldset>
+	  				<legend>Загрузка изображений в галерею</legend>
+		  			<div id="firstMultipleInside" class="zpFormMultipleInside">
+	                	<label class='zpFormLabel'>Файл</label>
+	                	<input value="" onchange="appendNext();" size="26" name="file" type="file" class='zpForm' />
+	                	<div class="clear"></div>
+	                	<label class='zpFormLabel'>Заголовок (RU)</label>
+	                	<input value="" size="60" name="ct_photos_ru" type="text" class='zpForm' />
+	                	<br/>
+						<label class='zpFormLabel'>Заголовок (EN)</label>
+	                	<input value="" size="60" name="ct_photos_en" type="text" class='zpForm' />
+	                	<br/>
+	                </div>
+	                <div id="otherMultipleInside">
+	                </div>
+                </fieldset>
+	  			<div class="clear"></div>
+	  			<input class='zpForm' value="<?php echo ($NewsData ['news_id'] ? $NewsData ['news_id'] : "") ;?>" size="13" name="ct_id" id="imageGalleryForm-news_id" type="hidden"> 
+				<input value="4fbb5273dc1e5" size="26" name="ct_photo_type_id" type="hidden" class='zpForm item' />
+	            <input type="hidden" name="is_main" value="0" />
+	            <input type="hidden" name="folder" value="news"/>
+				<button style="" onclick="SaveImageGallery('DMN_Catalog', 'saveGalleryImages')" class="" type="button" id=""><span>Сохранить</span></button>
+	  		</form>
+	  		<div style="margin-top:20px;" id="images-gallery-list">
+	  			<?php if($NewsData ['news_id']) { echo Controller::Template("/dmn/news/template/gallerylistphotos.php", array ('Data' => $GalleryData, "folder" => "news" )); } ?>
+	  		</div>
+	  	</div>
+	</div>
+</div>            
+

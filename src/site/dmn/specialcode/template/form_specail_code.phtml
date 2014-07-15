@@ -1,0 +1,59 @@
+<script type="text/javascript">
+//	Zapatec
+//	функция возврата положительного ответа myOnFunctionEdit
+//	<script type='text/javascript' src='../utils/js/js-zapatec/form.js'>
+Zapatec.Form.setupAll({
+	showErrors: 'afterField',
+	showErrorsOnSubmit: true,
+	submitErrorFunc: testErrOutput,
+	asyncSubmitFunc: EditCatIsOk,
+	busyConfig: {
+		busyContainer: "userForm"
+	}
+	
+});
+checkIfLoadedFromHDD();
+function EditCatIsOk () {
+	var outputDiv = document.getElementById("errOutput");
+		
+	if(outputDiv != null){
+		outputDiv.innerHTML = '';//clear error message if any
+		outputDiv.style.display = "none";
+	}
+	$('#errOutput').hide();
+	$('#errOutputGood').show();
+	$('#errOutputGood').text('Data save.');
+	return;
+}
+
+$(function() {
+	$("#tabs").tabs();
+});
+</script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPage('TSpecialCode', 'getPage')" class="ui-state-default ui-corner-all bottom-padding" title="Back" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>back</a> 
+</div>
+<div style="margin:0 10px;">
+<div id='errOutputGood' class="errOutputGood"></div>
+<div id='errOutput' class="errOutput"></div>
+<div id="tabs">
+	<ul>
+    	<li><a href="#tabs-1">Special Code</a></li>
+    </ul>
+    <div id="tabs-1">
+		<form action="/dmn/t-ajax.php?zone=dmn&cont=TSpecialCode&action=save&dataType=" id='userForm' class="zpFormWinXP" method="POST">
+			<fieldset>
+				<label class='zpFormLabel'>Code</label> 
+				<input class='zpFormRequired' value="<?php echo $Data ['code']; ?>" size="40" name="code" type="text"> <br />
+				<label class='zpFormLabel'>Dealer</label> 
+				<select class=" select" title="" name="d_id" id="d_id">
+					<?php echo sel_parent_id($DealerData, ($Data ? $Data[d_id] : ""), "dict_id", "dict_name")?>
+				</select>   
+				<br />
+			</fieldset>
+			<input class='zpForm' value="<?php echo ($data ['p_id'] ? $data ['p_id'] : $nextID) ;?>" size="13" name="p_id" type="hidden"> 
+			<input class='zpForm' value="<?php echo ($data ['p_id'] ? "edit" : "new") ;?>" size="13" name="type_save" type="hidden"> 
+			<input value="Save" name="Submit" onClick="" type="submit" class="button" /> 
+		</form>
+	</div>
+</div> 

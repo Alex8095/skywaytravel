@@ -1,0 +1,77 @@
+<script type="text/javascript" src="../places/js/action.js"></script>
+<script type="text/javascript">
+//	Zapatec
+//	функция возврата положительного ответа myOnFunctionEdit
+//	<script type='text/javascript' src='../utils/js/js-zapatec/form.js'>
+Zapatec.Form.setupAll({
+	showErrors: 'afterField',
+	showErrorsOnSubmit: true,
+	submitErrorFunc: testErrOutput,
+	asyncSubmitFunc: EditCatIsOk,
+	busyConfig: {
+		busyContainer: "userForm"
+	}
+	
+});
+checkIfLoadedFromHDD();
+function EditCatIsOk () {
+	var outputDiv = document.getElementById("errOutput");
+		
+	if(outputDiv != null){
+		outputDiv.innerHTML = '';//clear error message if any
+		outputDiv.style.display = "none";
+	}
+	$('#errOutput').hide();
+	$('#errOutputGood').show();
+	$('#errOutputGood').text('Data save.');
+	return;
+}
+
+$(function() {
+	$("#tabs").tabs();
+});
+</script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPage('DMN_Users', 'getPage')" class="ui-state-default ui-corner-all bottom-padding" title="Back" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>back</a> 
+</div>
+<div style="margin:0 10px;">
+<div id='errOutputGood' class="errOutputGood"></div>
+<div id='errOutput' class="errOutput"></div>
+
+<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Users&action=save&dataType=" id='userForm' class="zpFormWinXP" method="POST">
+	<fieldset>
+		<label class='zpFormLabel'>Id</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_id']; ?>" size="40" name="p_name" type="text" disabled="disabled"> <br />
+		<label class='zpFormLabel'>Login</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_login']; ?>" size="40" name="p_name" type="text"> <br />
+		<label class='zpFormLabel'>email</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_email']; ?>" size="40" name="p_name" type="text"> <br />
+		<label class='zpFormLabel'>phone</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_phone_mobile']; ?>" size="40" name="p_name" type="text"> <br />
+		<label class='zpFormLabel'>activity</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_activity']; ?>" size="40" name="p_name" type="text"> <br />
+		<label class='zpFormLabel'>regdate</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_regdate']; ?>" size="40" name="p_name" type="text"> <br />
+	</fieldset>
+	<fieldset>
+		<label class='zpFormLabel'>country</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_country']; ?>" size="40" name="p_name" type="text"> <br />
+		<label class='zpFormLabel'>city</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_city']; ?>" size="40" name="p_name" type="text"> <br />
+		<label class='zpFormLabel'>adress</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_adress']; ?>" size="40" name="p_name" type="text"> <br />
+		<label class='zpFormLabel'>zip_code</label> 
+		<input class='zpForm' value="<?php echo $Data ['user_zip_code']; ?>" size="40" name="p_name" type="text"> <br />
+	</fieldset>
+	<?php if(count($PData)>0):?>
+		<fieldset>
+		<?php foreach ($PData as $key => $value):?>
+			<label class='zpFormLabel'><?php echo $value["p_name"]?></label>
+		    <input class='zpForm' value="1" size="40" name="p_id[<?php echo $value["p_id"]?>]" disabled="disabled" type="checkbox" checked="checked" >
+		    <br />
+		<?php endforeach;?>
+		</fieldset>
+	<?php endif;?>
+	<input class='zpForm' value="<?php echo ($data ['p_id'] ? $data ['p_id'] : $nextID) ;?>" size="13" name="p_id" type="hidden"> 
+	<input class='zpForm' value="<?php echo ($data ['p_id'] ? "edit" : "new") ;?>" size="13" name="type_save" type="hidden"> 
+</form>

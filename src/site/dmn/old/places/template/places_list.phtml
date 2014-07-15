@@ -1,0 +1,31 @@
+<?php if ($Data) : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<td width="10"></td>
+		<td width="10">Image</td>
+		<td width="350">Name</td>
+		<td width="150">Country</td>
+		<td width="100">City</td>
+		<td width="100">Count Place</td>
+		<td></td>
+	</tr>
+	<tbody>
+		
+		<?php foreach ( $Data as $key => $value ) : ?>
+		<tr>
+			<td width="10"><?php echo $value["p_id"]?></td>
+			<td width="60"><?php if($value["p_img"]) :?><img src="../../files/images/places/<?php echo $value["p_img"]?>" width="50"/> <?php endif;?></td>
+			<td width="200"><?php echo $value["p_name"]?></td>
+			<td width=""><?php echo $value["country"]?></td>
+			<td width=""><?php echo $value["city"]?></td>
+			<td width=""><?php echo $value["p_count_place"]?></td>
+			<td width="50"><a href="#" onclick="TEdit('DMN_Places', 'getPlace', <?php echo $value["p_id"]?>)" title="edit">Edit</a> <a href="#" onclick="TDelete('DMN_Places', 'delete', <?php echo $value["p_id"]?>)" title="Delete">Delete</a></td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php else: ?>
+<b>No data!</b>
+<?php endif; ?>
+
+

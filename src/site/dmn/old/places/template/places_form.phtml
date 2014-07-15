@@ -1,0 +1,113 @@
+<script type="text/javascript" src="../places/js/action.js"></script>
+<script type="text/javascript">
+//	Zapatec
+//	функция возврата положительного ответа myOnFunctionEdit
+//	<script type='text/javascript' src='../utils/js/js-zapatec/form.js'>
+Zapatec.Form.setupAll({
+	showErrors: 'afterField',
+	showErrorsOnSubmit: true,
+	submitErrorFunc: testErrOutput,
+	asyncSubmitFunc: EditCatIsOk,
+	busyConfig: {
+		busyContainer: "userForm"
+	}
+	
+});
+checkIfLoadedFromHDD();
+function EditCatIsOk () {
+	var outputDiv = document.getElementById("errOutput");
+		
+	if(outputDiv != null){
+		outputDiv.innerHTML = '';//clear error message if any
+		outputDiv.style.display = "none";
+	}
+	$('#errOutput').hide();
+	$('#errOutputGood').show();
+	$('#errOutputGood').text('Data save.');
+	return;
+}
+
+$(function() {
+	var CityData = [];
+	var cd = 1;
+	<?php foreach ($CityData as $key => $value):?>
+		CityData[cd] = [<?php echo $value["cc_id"]?>, <?php echo $value["parent_id"]?>, '<?php echo $value["cc_name"]?>'];
+		cd++;
+	<?php endforeach;?>
+	$("#p_country").change(function() {
+		
+		var p_country = $("#p_country option:selected").val();
+		$("#p_city").empty();
+		for(var i = 1; i < CityData.length; i++) {
+			if(CityData[i][1] == p_country) {
+				$("#p_city").append("<option value=" + CityData[i][0] + ">" + CityData[i][2] + "</option>");
+			}
+		}
+	});
+	$("#tabs").tabs();
+});
+</script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPage('DMN_Places', 'getPage')" class="ui-state-default ui-corner-all bottom-padding" title="Back" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>back</a> 
+</div>
+<div style="margin:0 10px;">
+<div id='errOutputGood' class="errOutputGood"></div>
+<div id='errOutput' class="errOutput"></div>
+			
+<div id="tabs">
+	<ul>
+    	<li><a href="#tabs-1">Place</a></li>
+    	<li><a href="#tabs-2">Image</a></li>
+    	<li><a href="#tabs-3">Sectors</a></li>
+    </ul>
+    <div id="tabs-1">
+		<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Places&action=save&dataType=" id='userForm' class="zpFormWinXP" method="POST">
+			<fieldset>
+				<label class='zpFormLabel'>Наименование стадиона</label> 
+				<input class='zpFormRequired' value="<?php echo $data ['p_name']; ?>" size="40" name="p_name" type="text"> <br />
+				<label class='zpFormLabel'>Country</label> 
+				<select name="p_country" id="p_country"  class="zpFormRequired">
+					<option value="">No selected</option>
+					<?php echo sel_parent_id ( $CountryData, $data ['p_country'], 'cc_id', 'cc_name' ); ?>
+				</select>
+				<br />
+				<label class='zpFormLabel'>City</label> 
+				<select name="p_city" id="p_city" class="zpFormRequired">
+					<?php echo sel_parent_id ( $CityData, $data ['p_city'], 'cc_id', 'cc_name' ); ?>
+				</select>
+				<br />
+				<label class='zpFormLabel'>Количество мест</label>
+				<input class='zpFormRequired' value="<?php echo $data ['p_count_place']; ?>" size="40" name="p_count_place" type="text"><br />
+			</fieldset>
+			<input class='zpForm' value="<?php echo ($data ['p_id'] ? $data ['p_id'] : $nextID) ;?>" size="13" name="p_id" type="hidden"> 
+			<input class='zpForm' value="<?php echo ($data ['p_id'] ? "edit" : "new") ;?>" size="13" name="type_save" type="hidden"> 
+			<input value="Save" name="Submit" onClick="" type="submit" class="button" /> 
+		</form>
+	</div>
+	<div id="tabs-2">
+		<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Places&action=saveImage&dataType=html" enctype="multipart/form-data" id='t-imageForm' class="zpFormWinXP" method="POST">
+			<fieldset>
+				<input class='zpForm' type="file" name="p_img">
+			</fieldset>
+			<input class='zpForm' value="<?php echo ($data ['p_id'] ? $data ['p_id'] : $nextID) ;?>" size="13" name="p_id" type="hidden"> 
+			<button style="" onclick="SaveImage('DMN_Places', 'saveImage')" class="" type="button" id=""><span>Save</span></button>
+		</form>
+		<div style="margin-top:20px;" id="place-image">
+			<?php if($data["p_img"]) :?><img src="../../files/images/places/<?php echo $data["p_img"]?>" width="100"/> <?php endif;?>
+	   	</div>
+	</div>
+	<div id="tabs-3">
+		<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Places&action=saveSectors&dataType=html" enctype="multipart/form-data" id='t-sectorForm' class="zpFormWinXP" method="POST">
+			<fieldset>
+				<input class='zpForm' type="file" name="sectors_csv">
+			</fieldset>
+			<input class='zpForm' value="<?php echo ($data ['p_id'] ? $data ['p_id'] : $nextID) ;?>" size="13" name="p_id" type="hidden"> 
+			<button style="" onclick="SaveSectors('DMN_Places', 'saveSectors')" class="" type="button" id=""><span>Save</span></button>
+		</form>
+		<div id="sector-list">
+			<?php echo $SectorData;?>
+	   	</div>
+	</div>
+</div>
+</div>            
+

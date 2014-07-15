@@ -1,0 +1,4 @@
+﻿Магазины
+false
+TShowPage('DMN_Shops', 'getPage')
+true

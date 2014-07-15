@@ -1,0 +1,20 @@
+<?php if (count($Data) > 0)  : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<td width=50>ID</td>
+		<td width=100>Изображение</td>
+		<td width=150>Тип</td>
+	</tr>
+	<tbody>
+		<?php foreach ( $Data as $key => $value ) : ?>
+		<tr>
+			<td><?php echo $value["ct_photo_id"]?></td>
+			<td><?php if($value["ct_photo_id"]):?><img width="100" src="../../files/images/news/<?php echo $value["ct_photo_id"]?>.<?php echo $value["ct_photo_file_type"]?>"/><?php endif;?></td>
+			<td><?php echo $value["dict_name"]; ?></td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php else: ?>
+<b>Ничего не найдено по Вашему запросу!</b>
+<?php endif; ?>

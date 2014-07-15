@@ -1,0 +1,24 @@
+<?php if ($Data) : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<th><span class="nobr">&nbsp;</span></th>
+		<th><span class="nobr">Stores</span></th>
+		<th><span class="nobr">Dealer</span></th>
+		<th><span class="nobr">Code</span></th>
+		<th class=" no-link last"><span class="nobr"></span></th>
+	</tr>
+	<tbody>
+		<?php foreach ($Data as $key => $value): ?>
+		<tr>
+			<td  width="10"></td>
+			<td><?php echo $value["dealer_name"]?></td>
+			<td><?php echo $value["gs_dealer_sc"]?></td>
+			<td><?php echo $value["gs_name"]?></td>
+			<td width="50"><a href="#" onclick="TDelete('TSpecialCode', 'delete', <?php echo $value["gs_id"]?>)" title="Delete">Delete</a></td>
+		</tr>
+		<?php endforeach;?>
+	</tbody>
+</table>
+<?php else: ?>
+<b>No data!</b>
+<?php endif; ?>

@@ -1,0 +1,20 @@
+<?php if ($Data) : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<th><span class="nobr">&nbsp;</span></th>
+		<th><span class="nobr">Name</span></th>
+		<th class=" no-link last"><span class="nobr"></span></th>
+	</tr>
+	<tbody>
+		<?php foreach ($Data as $key => $value): ?>
+		<tr>
+			<td width="10"></td>
+			<td><?php echo $value["p_name"]?></td>
+			<td width="100"><a href="#" onclick="TEdit('TPacketCode', 'getPacket', <?php echo $value["p_id"]?>)" title="edit">Edit</a> <a href="#" onclick="TDelete('TPacketCode', 'delete', <?php echo $value["p_id"]?>)" title="Delete">Delete</a></td>
+		</tr>
+		<?php endforeach;?>
+	</tbody>
+</table>
+<?php else: ?>
+<b>No data!</b>
+<?php endif; ?>

@@ -1,7 +1,7 @@
 <?php
 // одключение к БД, и подключение классов
 // require_once("../config/config.php");
-// require_once("../config/class.config.php");
+// require_once("../config/class.inc");
 // chmod ($_SERVER['DOCUMENT_ROOT']."/files/images/immovables/*", 0777);
 $dir = opendir ( $_SERVER ['DOCUMENT_ROOT'] . "/files/images/immovables/" );
 while ( ($file = readdir ( $dir )) !== false ) {

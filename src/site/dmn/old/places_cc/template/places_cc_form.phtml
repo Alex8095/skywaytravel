@@ -1,0 +1,78 @@
+<script type="text/javascript" src="../places_cc/js/action.js"></script>
+<script type="text/javascript">
+//	Zapatec
+//	функция возврата положительного ответа myOnFunctionEdit
+//	<script type='text/javascript' src='../utils/js/js-zapatec/form.js'>
+Zapatec.Form.setupAll({
+	showErrors: 'afterField',
+	showErrorsOnSubmit: true,
+	submitErrorFunc: testErrOutput,
+	asyncSubmitFunc: EditCatIsOk,
+	busyConfig: {
+		busyContainer: "userForm"
+	}
+	
+});
+
+checkIfLoadedFromHDD();
+
+function EditCatIsOk () {
+	var outputDiv = document.getElementById("errOutput");
+		
+	if(outputDiv != null){
+		outputDiv.innerHTML = '';//clear error message if any
+		outputDiv.style.display = "none";
+	}
+	$('#errOutput').hide();
+	$('#errOutputGood').show();
+	$('#errOutputGood').text('Data save.');
+	jQuery("#citys-list").load("/dmn/t-ajax.php?zone=dmn&cont=DMN_Places_CC&action=getCitys&dataType=html&id=" + <?php echo ($data ['cc_id'] ? $data ['cc_id'] : $nextID) ;?>);
+	return;
+}
+$(function() {
+	$("#tabs").tabs();
+});
+
+</script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPage('DMN_Places_CC', 'getPage')" class="ui-state-default ui-corner-all bottom-padding" title="Back" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>back</a> 
+</div>
+<div style="margin:0 10px;">
+	<div id='errOutputGood' class="errOutputGood"></div>
+	<div id='errOutput' class="errOutput"></div>
+	<div id="tabs">
+		<ul>
+	    	<li><a href="#tabs-1">Country</a></li>
+	    	<li><a href="#tabs-2">Citys</a></li>
+	    </ul>
+	    <div id="tabs-1">
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Places_CC&action=save&dataType=" id='userForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<label class='zpFormLabel'>Country</label> 
+					<input class='zpFormRequired' value="<?php echo $data ['cc_name']; ?>" size="40" name="cc_name" type="text"> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($data ['cc_id'] ? $data ['cc_id'] : $nextID) ;?>" size="13" name="cc_id" type="hidden"> 
+				<input class='zpForm' value="country" size="13" name="cc_type" type="hidden"> 
+				<input class='zpForm' value="<?php echo ($data ['cc_id'] ? "edit" : "new") ;?>" size="13" name="type_save" type="hidden"> 
+				<input value="Save" name="Submit" onClick="" type="submit" class="button" /> 
+			</form>
+		</div>
+		<div id="tabs-2">
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Places_CC&action=save&dataType=" id='t-Form-Citys' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<label class='zpFormLabel'>City</label> 
+					<input class='zpFormRequired' value="" size="40" name="cc_name" type="text"> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($data ['cc_id'] ? $data ['cc_id'] : $nextID) ;?>" size="13" name="parent_id" type="hidden"> 
+				<input class='zpForm' value="city" size="13" name="cc_type" type="hidden"> 
+				<input class='zpForm' value="new" size="13" name="type_save" type="hidden"> 
+				<input value="Save" name="Submit" onClick="" type="submit" class="button" /> 
+			</form>
+			
+			<div id="citys-list">
+				<?php echo $citysData;?>
+			</div>
+		</div>
+	</div>
+</div>            
+

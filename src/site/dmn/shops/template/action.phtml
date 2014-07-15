@@ -1,0 +1,30 @@
+<div id="d-filter">
+	<h3>Фильтр страницы</h3>
+	<form action="" method="POST" id="pageFormSearch">
+		<ul>
+			<li>
+				<label>Бренд</label><br />
+				<select  class="d-filter-select"  name="brend_id">
+					<option value="">не выбрано</option>
+					<?php echo sel_parent_id($brendDataList, $activeBrend, 'ct_id', 'ct_name'); ?>
+				</select>
+			</li>
+			<li>
+				<label>Город</label><br />
+				<select  class="d-filter-select"  name="city_id">
+					<option value="">не выбрано</option>
+					<?php echo sel_parent_id($cityDataList, $activeCity, 'dict_id', 'dict_name'); ?>
+				</select>
+			</li>
+		</ul>
+		<button style="" onclick="TSearchForm('DMN_Shops', 'getPage');" class="d-filter-button-search ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button" id=""><span>Применить</span></button>
+	</form>
+</div>
+
+<div class="eventForm">
+<a href="#" onclick="TAddSpecialCode('DMN_Shops', 'getShop');" class="ui-state-default ui-corner-all bottom-padding" title="Добавить позицию" id="submitAdd"><span class="ui-icon ui-icon-plus"></span>Добавить позицию</a> 
+<!-- 
+<a href="#" onclick="TAddSpecialCode('DMN_Places', 'getPlace');" class="ui-state-default ui-corner-all bottom-padding" title="редактировать пункт &laquo;Каталогa&raquo;" id="submitEdit"><span class="ui-icon ui-icon-pencil"></span>редактировать пункт</a> 
+<a href="#" onclick="TAddSpecialCode('DMN_Places', 'dellPlace');" class="ui-state-default ui-corner-all bottom-padding" title="удалить пункт &laquo;Каталогa&raquo;" id="submitDell"><span class="ui-icon ui-icon-trash"></span>удалить пункт</a></div>
+-->
+</div>

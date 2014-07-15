@@ -1,0 +1,55 @@
+<script type="text/javascript">
+//	Zapatec
+//	функция возврата положительного ответа myOnFunctionEdit
+//	<script type='text/javascript' src='../utils/js/js-zapatec/form.js'>
+Zapatec.Form.setupAll({
+	showErrors: 'afterField',
+	showErrorsOnSubmit: true,
+	submitErrorFunc: testErrOutput,
+	asyncSubmitFunc: EditCatIsOk,
+	busyConfig: {
+		busyContainer: "userForm"
+	}
+	
+});
+checkIfLoadedFromHDD();
+function EditCatIsOk () {
+	var outputDiv = document.getElementById("errOutput");
+		
+	if(outputDiv != null){
+		outputDiv.innerHTML = '';//clear error message if any
+		outputDiv.style.display = "none";
+	}
+	$('#errOutput').hide();
+	$('#errOutputGood').show();
+	$('#errOutputGood').text('Data save.');
+	return;
+}
+
+$(function() {
+	$("#tabs").tabs();
+});
+</script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPage('TPacketCode', 'getPage')" class="ui-state-default ui-corner-all bottom-padding" title="Back" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>back</a> 
+</div>
+<div style="margin:0 10px;">
+<div id='errOutputGood' class="errOutputGood"></div>
+<div id='errOutput' class="errOutput"></div>
+			
+<div id="tabs">
+	<ul>
+    	<li><a href="#tabs-1">Packet</a></li>
+    </ul>
+    <div id="tabs-1">
+		<form action="/dmn/t-ajax.php?zone=dmn&cont=TPacketCode&action=save&dataType=" id='userForm' class="zpFormWinXP" method="POST">
+			<fieldset>
+				<label class='zpFormLabel'>Packet name</label> 
+				<input class='zpFormRequired' value="<?php echo $Data ['p_name']; ?>" size="40" name="p_name" type="text"> <br />
+			</fieldset>
+			<input class='zpForm' value="<?php echo ($Data ['p_id'] ? $Data ['p_id'] : "") ;?>" size="13" name="p_id" type="hidden"> 
+			<input value="Save" name="Submit" onClick="" type="submit" class="button" /> 
+		</form>
+	</div>
+</div>
+</div>            

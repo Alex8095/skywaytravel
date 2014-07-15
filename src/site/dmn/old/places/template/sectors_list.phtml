@@ -1,0 +1,11 @@
+<?php if($data): ?>
+	<table style="margin: 15px 0 0 0">
+		<tr>
+			<th style="text-align: left">Code</th>
+			<th style="text-align: left">Qwantity</th>
+		</tr>
+		<?php foreach ($data as $key => $value):?>
+			<tr><td width="150"><?php echo $value["s_code"]?></td><td width="200"><?php echo $value["s_qwantity"]?></td></tr>
+		<?php endforeach;?>
+	</table>
+<?php endif;?>

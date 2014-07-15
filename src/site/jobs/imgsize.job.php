@@ -4,7 +4,7 @@ define ( 'SLASH', '/' );
 define ( 'DOC_ROOT', $_SERVER ['DOCUMENT_ROOT'] );
 define ( 'DEBUG', 1 );
 // подключение классов
-include DOC_ROOT . '/config/class.config.php';
+include DOC_ROOT . '/config/class.inc';
 
 $fDir = DOC_ROOT . "/files/images/ct_photos/";
 $ImgPropLogo ['ImgW'] = 800;

@@ -1,0 +1,79 @@
+<?php 
+define ( 'SLASH', '/' );
+define ( 'DOC_ROOT', $_SERVER ['DOCUMENT_ROOT'] );
+require_once DOC_ROOT . '/dmn/utils/template.ajax/js2.css.php';
+?>
+
+<script type="text/javascript">
+var id = "<?php echo ($Data ['ct_id'] ? $Data ['ct_id'] : "")?>";
+$(function() {
+	$("#Atabs").tabs();
+	if(id == "") {
+		$("#Ali-tabs-2").hide();
+	}
+});
+</script>
+<script type="text/javascript" src="../brends/js/action.article.js"></script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPageBrend('DMN_Brends', 'getArticles', 'BrandListArticles')" class="ui-state-default ui-corner-all bottom-padding" title="Назад" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>Назад</a> 
+</div>
+<div style="margin:0 10px;">
+	<div id="Atabs">
+		<ul>
+	    	<li><a href="#Atabs-1">Статья</a></li>
+	    	<li id="Ali-tabs-2"><a href="#Atabs-2">Изображение</a></li>
+	    </ul>
+	    <div id="Atabs-1">
+	    	<script type="text/javascript">
+				new Zapatec.Form({
+					form: 'ArticleForm',
+					showErrors: 'afterField',
+					showErrorsOnSubmit: true,
+					submitErrorFunc: testErrOutput,
+					asyncSubmitFunc: OnSuccessADataForm,
+					theme: "WinXP"
+				});
+			</script>
+	 		<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Catalog&action=save&dataType=json" id='ArticleForm' name='DataForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<label class='zpFormLabel'>Заголовок</label> 
+					<input class='zpFormRequired' value="<?php echo $Data ['ct_title']; ?>" size="40" name="ct_title" type="text"> <br />
+					<label class='zpFormLabel'>Позиция</label> 
+					<input value="<?php echo $Data ['pos']; ?>" name="pos" type="text" class="zpForm zpFormInt" /> <br />
+					<label class='zpFormLabel'>Подробное описание</label> <br /> 
+					<textarea class='zpForm' rows="10" cols="10" name="ct_text"><?php echo $Data ['ct_text']; ?></textarea><br /> 
+				</fieldset>
+				<fieldset>
+					<label class='zpFormLabel'>Отображать</label> 
+					<input class='zpForm' value="1" <?php echo ($Data ['hide'] ? ' checked="checked" ' : ''); ?> size="40" name="hide" type="checkbox"> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($Data ['ct_id'] ? $Data ['ct_id'] : "") ;?>" size="13" name="ct_id" type="hidden"> 
+				<input class='zpForm' value="<?php echo ($Data ['ct_id'] ? "edit" : "new") ;?>" size="13" name="type_save" type="hidden"> 
+				<input class='zpForm' value="<?php echo $parent_id;?>" size="13" name="parent_id" type="hidden"> 
+				<input class='zpForm' value="4fbcb00b7ccb8" size="13" name="dict_id" type="hidden"> 
+				<input value="Сохранить" name="Submit" onClick="" type="submit" class="button" /> 
+			</form>
+	  </div>
+	  <div id="Atabs-2">
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_Catalog&action=saveOneImage&dataType=html" enctype="multipart/form-data" id='imageAForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<input class='zpForm' type="file" name="image" id="Aimage">
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($Data ['ct_id'] ? $Data ['ct_id'] : "") ;?>" size="13" name="ct_id" id="imageAForm-ct_id" type="hidden"> 
+				<input type="hidden" name="ct_photo_type_id" value="4fbcb5ee9b2cd" />
+				<input type="hidden" name="is_small" value="false" />
+				<input type="hidden" name="is_main" value="1" />
+				<button style="" onclick="SaveAImage('DMN_Catalog', 'saveOneImage')" class="" type="button" id=""><span>Сохранить</span></button>
+			</form>
+			<div style="margin-top:20px;" id="images-archive-list">
+				<?php if($ImageData["ct_photo_id"]) :?>
+					<div class="image-<?php echo $ImageData["ct_photo_id"]?>">
+						<img width="100" src="../../files/images/ct_photos/sm_<?php echo $ImageData["ct_photo_id"]?>.<?php echo $ImageData["ct_photo_file_type"]?>"/> 
+						<a title="Удалить" onclick="TDeleteImage('DMN_Catalog', 'deleteImage', '<?php echo $ImageData["ct_photo_id"]?>')" href="#">Удалить</a>
+					</div>
+				<?php endif;?>
+		   	</div>
+		</div>
+	</div>
+</div>            
+

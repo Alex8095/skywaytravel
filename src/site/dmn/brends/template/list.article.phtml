@@ -1,0 +1,40 @@
+<?php 
+	global $tbl;
+	//формирование стран и городов
+	$dictionaries = new dictionaries ( );
+	$dictionaries->buid_dictionaries_list ( $tbl ['list_dict'] ['name'] );
+	$dictionaries->buid_dictionaries ( $tbl ['dict'] ['name'], "WHERE lang_id = {$_COOKIE['lang_id']} ORDER BY dict_name ASC" );
+	$dictionaries->do_dictionaries ( 12);
+	$newsTypeDict = $dictionaries->my_dct;
+?>
+<div class="eventForm">
+	<a href="#" onclick="TAddBrend('DMN_Brends', 'getArticle', 'BrandListArticles');" class="ui-state-default ui-corner-all bottom-padding" title="Добавить статью" id="submitNAdd"><span class="ui-icon ui-icon-plus"></span>Добавить статью</a> 
+</div>
+<?php if ($Data) : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<td width=10></td>
+		<td width=50>ID</td>
+		<td width=100>Изображение</td>
+		<td>Заголовок</td>
+		<td width=80>Позиция</td>
+		<td width=80>Активность</td>
+		<td width="150"></td>
+	</tr>
+	<tbody>
+		<?php foreach ( $Data as $key => $value ) : ?>
+		<tr>
+			<td></td>
+			<td><?php echo $value["ct_id"]?></td>
+			<td style="background: #192129"><?php if($value["ct_photo_id"]):?><img width="100" src="../../files/images/ct_photos/<?php echo $value["ct_photo_id"]?>.<?php echo $value["ct_photo_file_type"]?>"/><?php endif;?></td>
+			<td><?php echo $value["ct_title"]?></td>
+			<td><?php echo $value["pos"]; ?></td>
+			<td><?php echo ($value["hide"] ? "Да" : "Нет");?></td>
+			<td><a href="#" onclick="TBrendsEdit('DMN_Brends', 'getArticle', '<?php echo $value["ct_id"]?>', 'BrandListArticles')" title="Просмотр/Редактирование">Просмотр/Редактирование</a> <a href="#" onclick="TBrendsDelete('DMN_Brends', 'deleteArticle', '<?php echo $value["ct_id"]?>', 'BrandListArticles')" title="Удалить">Удалить</a></td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php else: ?>
+<b>Ничего не найдено по Вашему запросу!</b>
+<?php endif; ?>

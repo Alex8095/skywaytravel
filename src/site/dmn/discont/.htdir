@@ -1,0 +1,4 @@
+﻿Дисконт
+false
+TShowPage('DMN_Disconts', 'getPage')
+true
