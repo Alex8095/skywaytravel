@@ -8,6 +8,7 @@ require_once ("../../config/config.php");
 //require_once("../utils/security_mod.php");
 // Подключаем SoftTime FrameWork
 require_once ("../../config/class.inc");
+require_once ("../../dmn/utils/db_tables.inc");
 
 $title = 'Управление блоком значение справочника';
 

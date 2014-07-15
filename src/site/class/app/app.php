@@ -31,7 +31,7 @@ class appClass {
 		$routingObj = $this->routingObj;
 		$this->cacheObj = new cacheClass ();
 		$this->appDataObj = new appDataClass ();
-		$exchangeRateObj = new exchangeRateClass ();
+		// $exchangeRateObj = new exchangeRateClass ();
 	}
 	/**
 	 * формируем активный контроллер, действие, гет параметры
@@ -117,7 +117,7 @@ class appClass {
 				$this->appDataObj->setKeyw ( $this->controllerDataObj->appDataObj->getKeyw () );
 				$this->appDataObj->setDesc ( $this->controllerDataObj->appDataObj->getDesc () );
 				$this->appDataObj->setH ( $this->controllerDataObj->appDataObj->getH () );
-			//	devLogs::_echo($this->controllerDataObj->appDataObj->getH ());
+				// devLogs::_echo($this->controllerDataObj->appDataObj->getH ());
 			} else {
 				$this->appDataObj->appentTitle ( $this->controllerDataObj->appDataObj->getTitle () );
 				$this->appDataObj->appentKeyw ( $this->controllerDataObj->appDataObj->getKeyw () );
@@ -128,9 +128,9 @@ class appClass {
 			$this->appDataObj->setPController ( $this->controllerDataObj->appDataObj->getPController () );
 			$this->appDataObj->setPAction ( $this->controllerDataObj->appDataObj->getPAction () );
 			$this->appDataObj->social = $this->controllerDataObj->appDataObj->social;
-			//devLogs::_printr($this->appDataObj->social);
-			//devLogs::_printr($this->controllerDataObj->appDataObj->social);
-			//echo $this->controllerDataObj->appDataObj->social["fb"]->url;
+			// devLogs::_printr($this->appDataObj->social);
+			// devLogs::_printr($this->controllerDataObj->appDataObj->social);
+			// echo $this->controllerDataObj->appDataObj->social["fb"]->url;
 		} catch ( Exception $exc ) {
 			// header ( "HTTP/1.1 301 Moved Permanently" );
 			// header ( "Location: http://" . $_SERVER['HTTP_HOST'] . "/404.html" );

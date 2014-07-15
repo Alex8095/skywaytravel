@@ -1,6 +1,7 @@
 <?php
  // функция превода текста с русского языка в траслит
- /*   function translit($st) {
+if (!function_exists('translit')){
+ function translit($st) {
     	return  strtr($st, 
                       array(
                       	  "a"=>"a", "б"=>"b", "в"=>"v", "г"=>"g",
@@ -26,7 +27,8 @@
                           )
                );
     }
-    
+}
+   if(!function_exists ("translitStrlover")) {
     function translitStrlover($st) {
     	return  strtr($st, 
                       array(
@@ -52,5 +54,7 @@
                           "ї"=>"i", "Ї"=>"yi", "є"=>"ie", "Є"=>"ye"
                           )
                );
-    }*/
+    }
+	
+   }
 ?>

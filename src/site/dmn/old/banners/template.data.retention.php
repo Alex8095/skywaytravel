@@ -3,10 +3,11 @@ define ( 'DOC_ROOT', $_SERVER ['DOCUMENT_ROOT'] );
 require_once ("../../config/config.php");
 //require_once("../utils/security_mod.php");
 require_once ("../../config/class.inc");
+require_once ("../../dmn/utils/db_tables.inc");
 // require_once("../utils/template.ajax/JSON.php");
 require_once '../utils/functions/f.encodestring.php';
 
-$log = new Logger ( DOC_ROOT . '/files/logs/site/' );
+$log = new LoggerClass ( DOC_ROOT . '/files/logs/site/' );
 
 $json_converter = new Services_JSON ( );
 $response = array ();

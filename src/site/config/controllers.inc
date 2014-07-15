@@ -21,3 +21,6 @@ require_once DOC_ROOT . '/app/controllers/content/wikiController.php';
 require_once DOC_ROOT . '/app/controllers/common/sitemapController.php';
 require_once DOC_ROOT . '/app/controllers/common/imageServiceController.php';
 require_once DOC_ROOT . '/app/controllers/immovables/addobjectController.php';
+require_once DOC_ROOT . '/app/controllers/content/toursController.php';
+require_once DOC_ROOT . '/app/controllers/content/flightsController.php';
+

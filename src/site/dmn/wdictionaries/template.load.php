@@ -4,6 +4,7 @@ define ( 'DOC_ROOT', $_SERVER ['DOCUMENT_ROOT'] );
 require_once ("../../config/config.php");
 // Подключаем SoftTime FrameWork
 require_once ("../../config/class.inc");
+require_once ("../../dmn/utils/db_tables.inc");
 
 # 	Получаем содержимое текущей страницы
 $cl_sel_pages = new mysql_select ( $tbl_list_dictionaries, "", "ORDER BY ld_id ASC" );
