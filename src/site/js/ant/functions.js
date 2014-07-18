@@ -99,14 +99,6 @@ function buildPageSize() {
  */
 function buildPageDesing() {
 	buildPageSize();
-	var l = (pageSize.window.width - pageSize.wrapper.width) / 2 - 40;
-	var r = (pageSize.window.width - pageSize.wrapper.width) / 2 - 40;
-	if(app.controller == "poisk" && app.action == "nakarte") {
-		l = 30;
-		r = 30;
-	}
-	$(".bgPrev").css("left", l);
-	$(".bgNext").css("right", r);
 }
 /**
  * отправка письма с недвижимостью на почту

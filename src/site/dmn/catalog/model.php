@@ -15,7 +15,7 @@ class DMN_Catalog extends Controller {
 	}
 	
 	public function save($array) {
-		$provider = new CatalogProvider ( 'catalog' );
+		$provider = new catalogProviderClass ( 'catalog' );
 		if ($array ['type_save'] == "new") {
 			$ct_id = $provider->InsertNewCatalogItem ( $array );
 			$return ['callbackArgs'] ["newActionID"] = $ct_id;
@@ -33,7 +33,7 @@ class DMN_Catalog extends Controller {
 	
 	public function saveOneImage($array) {
 		$image = $this->saveFile ( "ct_photos", $array ['is_small'] == ("false" ? false : true) );
-		$provider = new CatalogProvider ( 'catalog' );
+		$provider = new catalogProviderClass ( 'catalog' );
 		$array ['ct_photo_id'] = $image ['ct_photo_id'];
 		$array ['ct_photo_file_type'] = $image ['ct_photo_file_type'];
 		$provider->deleteImageForType ( $array ['ct_id'], $array ['ct_photo_type_id'] );
@@ -47,7 +47,7 @@ class DMN_Catalog extends Controller {
 		
 		//		print_r($array);
 		$image = $this->saveFile ( ($array ['folder'] ? $array ['folder'] : "ct_photos"), $array ['is_small'] == ("false" ? false : true) );
-		$provider = new CatalogProvider ( 'catalog' );
+		$provider = new catalogProviderClass ( 'catalog' );
 		$array ['ct_photo_id'] = $image ['ct_photo_id'];
 		$array ['ct_photo_file_type'] = $image ['ct_photo_file_type'];
 		$provider->deleteImageForType ( $array ['ct_id'], $array ['ct_photo_type_id'] );
@@ -59,7 +59,7 @@ class DMN_Catalog extends Controller {
 	
 	public function saveGalleryImage($array) {
 		$image = $this->saveFile ( ($array ['folder'] ? $array ['folder'] : "ct_photos"), $array ['is_small'] == ("false" ? false : true) );
-		$provider = new CatalogProvider ( 'catalog' );
+		$provider = new catalogProviderClass ( 'catalog' );
 		$array ['ct_photo_id'] = $image ['ct_photo_id'];
 		$array ['ct_photo_file_type'] = $image ['ct_photo_file_type'];
 		if ($array ['ct_photo_id'])
@@ -69,7 +69,7 @@ class DMN_Catalog extends Controller {
 	}
 	
 	public function getGallery($array) {
-		$provider = new CatalogProvider ( 'catalog' );
+		$provider = new catalogProviderClass ( 'catalog' );
 		$provider->GetCatalogItemImages ( array ("ct_id" => $array ["ct_id"] ) );
 		return Controller::Template ( "/dmn/catalog/template/listphotos.phtml", array ('Data' => $provider->resTable, 'folder' => ($array ['folder'] ? $array ['folder'] : "ct_photos") ) );
 	}
@@ -100,7 +100,7 @@ class DMN_Catalog extends Controller {
 				//				print_r($array);
 				//				echo "</pre>";
 				$image = $this->saveFile ( ($array ['folder'] ? $array ['folder'] : "ct_photos"), $array ['is_small'] == false, true );
-				$provider = new CatalogProvider ( 'catalog' );
+				$provider = new catalogProviderClass ( 'catalog' );
 				$array ['ct_photo_id'] = $image ['ct_photo_id'];
 				$array ['ct_photo_file_type'] = $image ['ct_photo_file_type'];
 				if ($array ['ct_photo_id']) {
@@ -113,7 +113,7 @@ class DMN_Catalog extends Controller {
 			}
 			$i = $i + 1;
 		}
-		$provider = new CatalogProvider ( 'catalog' );
+		$provider = new catalogProviderClass ( 'catalog' );
 		$provider->GetCatalogItemImages ( array ("ct_id" => $array ["ct_id"], "ph_dict_id" => $array ['ct_photo_type_id'] ) );
 		echo Controller::Template ( "/dmn/news/template/gallerylistphotos.php", array ('Data' => $provider->resTable, 'folder' => ($array ['folder'] ? $array ['folder'] : "ct_photos") ) );
 	}
@@ -162,7 +162,7 @@ class DMN_Catalog extends Controller {
 	}
 	
 	public function deleteImage($array) {
-		$provider = new CatalogProvider ( 'catalog' );
+		$provider = new catalogProviderClass ( 'catalog' );
 		$provider->deleteImage ( $array ["id"] );
 		
 		$return ['success'] = true;

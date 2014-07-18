@@ -44,7 +44,7 @@ global $renderHtmlLinkObj;
 <?php //echo appHtmlClass::partial("shared/partial/googletagmanager");?>
 <div class="wrapper w-<?php echo (!empty($_COOKIE["wrapperCssClass"]) ? $_COOKIE["wrapperCssClass"] : $routingObj->getParamItem("COOKIE_wrapperCssClass", "1"))?>" id="<?php echo sprintf("page-%s-%s", $routingObj->getController(), $routingObj->getAction()); ?>">
 	<?php echo appHtmlClass::partial ( "block/header", array("appDataObj" => $appDataObj)); ?>
-	<?php echo appHtmlClass::partialAction ( "block", "mainmenu", array ("hide" => "1", "p_type" => "p_index", "html_block" => "h", "controller"=> $routingObj->getController(), "action" => $routingObj->getAction() ) ); ?>
+	<?php echo appHtmlClass::partialAction ( "block", "mainmenu", array ("hide" => "1", "html_block" => "h", "controller"=> $routingObj->getController(), "action" => $routingObj->getAction() ) ); ?>
 	<?php echo appHtmlClass::partialAction ( "block", "stringnavigation", array ("controller"=> $routingObj->getController(), "action" => $routingObj->getAction(), "h"=> $appDataObj->getH(), "string_navigation" => $appDataObj->getStringNavigation (), "parent_controller" => $appDataObj->getPController (), "parent_action" => $appDataObj->getPAction (), "param" => $routingObj->getParamToString(), "is_cache" => true) ); ?>
 	<div class="div-center-page"><?php echo $body;?></div>
 	<div class="div-footer">

@@ -1,0 +1,1 @@
+<?php echo appHtmlClass::partial("tours/list", array("Model" => $Model, "type" => "avia"));?>

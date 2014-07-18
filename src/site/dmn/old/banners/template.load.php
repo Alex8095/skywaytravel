@@ -13,7 +13,7 @@ $dictionaries = new dictionariesClass ( );
 //формируем массив имени словарей
 $dct_list = $dictionaries->buid_dictionaries_list ( $tbl_list_dictionaries );
 //формируем массив значений словарей
-$dct = $dictionaries->buid_dictionaries ( $tbl_dictionaries, "WHERE lang_id = {$lang_id} ORDER BY dict_name" );
+$dct = $dictionaries->buid_dictionaries ( $tbl_dictionaries, "WHERE lang_id = {$_COOKIE[lang_id]} ORDER BY dict_name" );
 if ($_GET ['print'] == 'list_page') {
 	# 	Получаем содержимое текущей страницы
 	$cl_sel_pages = new mysql_select ( $tbl_catalog );

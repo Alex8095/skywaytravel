@@ -1,0 +1,4 @@
+﻿Туры
+false
+TShowPage('DMN_Tours', 'getPage')
+true

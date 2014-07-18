@@ -1,0 +1,4 @@
+Новости
+false
+TShowPage('DMN_News', 'getPage')
+true

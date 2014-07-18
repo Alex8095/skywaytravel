@@ -18,7 +18,8 @@ $PageGetArticles ['rss'] 				= array( 3 => 'type_rss', 4 => 'id');
 
 
 $routes ['home'] ['index'] = array (3 => 'page_id' );
-$routes ['service'] ['details'] = array (3 => 'sc_id' );
+// $routes ['service'] ['details'] = array (3 => 'sc_id' );
+$routes ['service'] ['visa'] = array (3 => 'visa_id' );
 $routes ['immovables'] ['details'] = array (3 => 'im_id' );
 $routes ['immovables'] ['detailsbycode'] = array (3 => "category", 4 => 'im_code' );
 
@@ -51,3 +52,5 @@ $routes ['addobject'] ['izobrazheniya'] = array (3 => 'im_id' );
 $routes ['addobject'] ['opisanie'] = array (3 => 'im_id' );
 
 $routes ['imageservice'] ['getimagecolor'] = array (3 => 'image_id' );
+$routes ['tours'] ['avia'] = array (3 => 'page_id', 4 => 'url' );
+$routes ['tours'] ['bus'] = array (3 => 'page_id', 4 => 'url' );

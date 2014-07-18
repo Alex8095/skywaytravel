@@ -11,7 +11,7 @@ $dct_list = $dictionaries->buid_dictionaries_list ( $tbl_list_dictionaries );
 #формируем массив значений словарей
 $dct = $dictionaries->buid_dictionaries ( $tbl_dictionaries, "WHERE lang_id = {$_COOKIE[lang_id]}" );
 #
-$cl_sel_pages = new mysql_select ( $tbl_catalog, "WHERE lang_id = {$lang_id} ", "ORDER BY dict_id ASC" );
+$cl_sel_pages = new mysql_select ( $tbl_catalog, "WHERE lang_id = {$_COOKIE[lang_id]} ", "ORDER BY dict_id ASC" );
 $cl_sel_pages->select_table ( "ct_id" );
 
 #	функция формирует списов возможный родителей, справочник меню

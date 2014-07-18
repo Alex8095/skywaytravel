@@ -9,10 +9,8 @@ class structureModelClass extends modelClass {
 				"action" => $action) );
 	}
 	public function getItemUrl($url) {
-		devLogs::_echo($url);
 		$this->item = $this->provider->getItemParam ( array(
 				"page_url" => $url) );
-		devLogs::_printr($this->item, "ssssssss");
 	}
 	public function getList($param) {
 		$res = $this->provider->getList ( $param );

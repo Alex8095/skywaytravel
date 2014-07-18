@@ -32,7 +32,7 @@ class DMN_News extends Controller {
 		if (isset ( $array ["id"] )) {
 			$Data = new mysql_select ( "news" );
 			$NewsData = $Data->select_table_id ( "where news_id = '{$array['id']}' and lang_id={$_COOKIE['lang_id']}" );
-			$catalogProvider = new CatalogProvider ( 'catalog' );
+			$catalogProvider = new catalogProviderClass ( 'catalog' );
 			$catalogProvider->GetCatalogItemImages ( array ("ct_id" => $array ["id"], "ph_dicts_id" => "'4fba172ec899c', '4fba176e2cec2'" ) );
 			$NewsImageData =$catalogProvider->resTable;
 			$catalogProvider->GetCatalogItemImages ( array ("ct_id" => $array ["id"], "ph_dict_id" => "4fbb5273dc1e5" ) );
