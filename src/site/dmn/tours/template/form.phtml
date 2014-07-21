@@ -1,0 +1,194 @@
+<?php
+define ( 'SLASH', '/' );
+define ( 'DOC_ROOT', $_SERVER ['DOCUMENT_ROOT'] );
+require_once DOC_ROOT . '/dmn/utils/template.ajax/js2.css.php';
+global $tbl;
+// формирование стран и городов
+$Model->dictionaries->do_dictionaries ( 21 );
+$typeImages = $Model->dictionaries->my_dct;
+
+function isCheckedCountry($list, $country_id) {
+	if ($list)
+		foreach ( $list as $key => $value ) {
+			if ($value ["country_id"] == $country_id)
+				return true;
+		}
+	return false;
+}
+?>
+
+<script type="text/javascript">
+var tourId = "<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "")?>";
+$(function() {
+	$("#tabs").tabs();
+	
+	if(tourId == "") {
+		$("#li-tabs-2").hide();
+		$("#li-tabs-3").hide();
+		$("#li-tabs-4").hide();
+		$("#li-tabs-5").hide();
+	}
+});
+</script>
+<script type="text/javascript" src="../tours/js/action.js"></script>
+<div class="eventForm">
+	<a href="#" onclick="TShowPage('DMN_Tours', 'getPage')" class="ui-state-default ui-corner-all bottom-padding" title="Назад" id=""><span class="ui-icon ui-icon-circle-triangle-w"></span>Назад</a>
+</div>
+<div style="margin: 0 10px;">
+	<div id='errOutputGood' class="errOutputGood"></div>
+	<div id='errOutput' class="errOutput"></div>
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Тур</a></li>
+			<li id="li-tabs-2"><a href="#tabs-2">Города</a></li>
+			<li id="li-tabs-5"><a href="#tabs-5">Цены</a></li>
+			<li id="li-tabs-3"><a href="#tabs-3">Даты</a></li>
+			<li id="li-tabs-4"><a href="#tabs-4">Изображения</a></li>
+		</ul>
+		<div id="tabs-1">
+			<script type="text/javascript">
+				new Zapatec.Form({
+					form: 'tourForm',
+					showErrors: 'afterField',
+					showErrorsOnSubmit: true,
+					submitErrorFunc: testErrOutput,
+					asyncSubmitFunc: OnSuccesstourForm,
+					theme: "WinXP"
+				});
+			</script>
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_tours&action=saveItem&dataType=json" id='tourForm' name='tourForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<label class='zpFormLabel'>Название</label> <input class='zpFormRequired' value="<?php echo $Model->item ['name']; ?>" size="40" name="name" type="text"> 
+					<br /> <label class='zpFormLabel'>Цена от</label>
+					<input class='zpFormRequired zpFormFloat' value="<?php echo $Model->item ['price_from']; ?>" size="40" name="price_from" type="text"><br /> 
+					<label class='zpFormLabel'>Дата от</label> 
+					<input class='zpForm zpFormMask="00\.00\.0000"' value="<?php echo date ( "d.m.Y",  strtotime($Model->item ['date_start'])); ?>" size="40" name="date_start" type="text"> <br /> 
+					<label class='zpFormLabel'>Количество дней</label> 
+					<input class='zpForm zpFormInt' value="<?php echo $Model->item ['days']; ?>" size="40" name="days" type="text"> <br /> 
+					<label class='zpFormLabel'>Звезд</label> 
+					<input class='zpForm zpFormInt' value="<?php echo $Model->item ['stars']; ?>" size="40" name="stars" type="text"> <br /> 
+					<label class='zpFormLabel'>Краткое описание</label> <br />
+					<textarea class='zpForm' rows="10" cols="10" name="description"><?php echo $Model->item ['description']; ?></textarea>
+					<br /> <label class='zpFormLabel'>Подробное описание</label> <br />
+					<textarea class='zpForm' rows="10" cols="10" name="summary"><?php echo $Model->item ['summary']; ?></textarea>
+					<br />
+				</fieldset>
+				<fieldset>
+					<legend>Веб</legend>
+					<label class='zpFormLabel'>Ссылка</label> <input class='zpForm' value="<?php echo $Model->item ['url']; ?>" size="40" name="url" type="text"> <br /> <label class='zpFormLabel'>Заголовок</label> <input
+						class='zpForm' value="<?php echo $Model->item ['web_title']; ?>" size="40" name="web_title" type="text"> <br /> <label class='zpFormLabel'>Ключевые слова</label> <input class='zpForm'
+						value="<?php echo $Model->item ['web_keywords']; ?>" size="40" name="web_keywords" type="text"> <br /> <label class='zpFormLabel'>Описание</label> <input class='zpForm'
+						value="<?php echo $Model->item ['web_description']; ?>" size="40" name="web_description" type="text"> <br />
+				</fieldset>
+				<fieldset>
+					<label class='zpFormLabel'>Тип</label> 
+					<select name="type_id" id="type_id" class="zpFormRequired">
+						<option value="">Не выбрано</option>
+						<?php echo sel_parent_id ( $Model->tourDictionaryTypes, $Model->item ['type_id'], 'dict_id', 'dict_name' ); ?>
+					</select> <br /> 
+					<label class='zpFormLabel'>Тип подробнее</label> 
+					<select name="type_inner_id" id="type_inner_id" class="zpForm">
+						<option value="">Не выбрано</option>
+						<?php echo sel_parent_id ( array_merge($Model->tourDictionaryTypesInner["avia"], $Model->tourDictionaryTypesInner["bus"]), $Model->item ['type_inner_id'], 'dict_id', 'dict_name' ); ?>
+					</select>
+				</fieldset>
+				<fieldset>
+					<label class='zpFormLabel'>Отображать</label> <input class='zpForm' value="1" <?php echo ($Model->item ['is_show'] ? ' checked="checked" ' : ''); ?> size="40" name="is_show" type="checkbox"> <br />
+					<br /> <label class='zpFormLabel'>Горящий</label> <input class='zpForm' value="1" <?php echo ($Model->item ['is_hot'] ? ' checked="checked" ' : ''); ?> size="40" name="is_hot" type="checkbox"> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="tour_id" type="hidden"> <input class='zpForm'
+					value="<?php echo ($Model->item ['tour_id'] ? "edit" : "new") ;?>" size="13" name="type_save" type="hidden"> <input class='zpForm' value="<?php echo $Model->item ['img'];?>" size="13" name="img"
+					type="hidden"> <input value="Сохранить" name="Submit" onClick="" type="submit" class="button" />
+			</form>
+		</div>
+		<div id="tabs-2">
+			<script type="text/javascript">
+				new Zapatec.Form({
+					form: 'tourContryesForm',
+					showErrors: 'afterField',
+					showErrorsOnSubmit: true,
+					submitErrorFunc: testErrOutput,
+					asyncSubmitFunc: OnSuccessTourCountryForm,
+					theme: "WinXP"
+				});
+			</script>
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_tours&action=saveTourCountry&dataType=json" id='tourContryesForm' name='tourContryesForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+	 			<?php foreach ($Model->tourDictionaryCountrys as $key => $value):?>
+	 				<label class='zpFormLabel'><?php echo $value["dict_name"]?></label> <input class='zpForm' value="1"
+						<?php echo (isCheckedCountry($Model->tourCountrys ['resBuildTable'], $value["dict_id"])? ' checked="checked" ' : ''); ?> size="40" name="<?php echo $value["dict_id"]?>" type="checkbox"> <br /> <br />
+				<?php endforeach;?>
+	 			</fieldset>
+				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="tour_id" type="hidden"> <input value="Сохранить" name="Submit" onClick=""
+					type="submit" class="button" />
+			</form>
+		</div>
+		<div id="tabs-3">
+			<script type="text/javascript">
+				new Zapatec.Form({
+					form: 'tourDatesForm',
+					showErrors: 'afterField',
+					showErrorsOnSubmit: true,
+					submitErrorFunc: testErrOutput,
+					asyncSubmitFunc: OnSuccessTourDateForm,
+					theme: "WinXP"
+				});
+			</script>
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_tours&action=saveTourDate&dataType=json" id='tourDatesForm' name='tourDatesForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<label class='zpFormLabel'>Дата</label> <input class='zpForm zpFormMask="00\.00\.0000"' value="" size="40" name="date" type="text"> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="tour_id" type="hidden"> <input value="Сохранить" name="Submit" onClick=""
+					type="submit" class="button" />
+			</form>
+			<div style="margin-top: 20px;" id="dates-list">
+					<?php if($Model->item ['tour_id']) { echo Controller::Template("/dmn/tours/template/listdates.phtml", array ('Data' => $Model->tourDates["resTable"], "Model" => $Model)); } ?>
+			</div>
+		</div>
+		<div id="tabs-5">
+			<script type="text/javascript">
+				new Zapatec.Form({
+					form: 'tourPriceForm',
+					showErrors: 'afterField',
+					showErrorsOnSubmit: true,
+					submitErrorFunc: testErrOutput,
+					asyncSubmitFunc: OnSuccessTourPriceForm,
+					theme: "WinXP"
+				});
+			</script>
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_tours&action=saveTourPrice&dataType=json" id='tourPriceForm' name='tourPriceForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<label class='zpFormLabel'>Цена</label> <input class='zpForm' value="" size="40" name="price" type="text"> <br /> <label class='zpFormLabel'>Тип</label> <select name="type_id" id="type_id"
+						class="zpForm">
+						<option value="">Не выбрано</option>
+						<?php echo sel_parent_id ( $Model->tourDictionaryPrices, null, 'dict_id', 'dict_name' ); ?>
+					</select> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="tour_id" type="hidden"> <input value="Сохранить" name="Submit" onClick=""
+					type="submit" class="button" />
+			</form>
+			<div style="margin-top: 20px;" id="price-list">
+					<?php if($Model->item ['tour_id']) { echo Controller::Template("/dmn/tours/template/listprices.phtml", array ('Data' => $Model->tourPrices["resTable"], "Model" => $Model)); } ?>
+			</div>
+		</div>
+		<div id="tabs-4">
+			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_tour&action=saveOneImage&dataType=html" enctype="multipart/form-data" id='imageForm' class="zpFormWinXP" method="POST">
+				<fieldset>
+					<input class='zpForm' type="file" name="image" id="image"> <br /> <label class='zpFormLabel'>Тип изображения</label> <select onChange="changeMainImage();" name="ct_photo_type_id"
+						id="image_ct_photo_type_id" class="zpFormRequired">
+							<?php echo sel_parent_id ( $typeImages, '', 'dict_id', 'dict_name' ); ?>
+						</select> <br />
+				</fieldset>
+				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="ct_id" id="imageForm-tour_id" type="hidden"> <input type="hidden"
+					name="is_small" value="false" /> <input type="hidden" name="folder" value="tour" /> <input type="hidden" name="is_main" id="is_main" value="0" />
+				<button style="" onclick="SaveImage('DMN_Catalog', 'saveGalleryOneImage')" class="" type="button" id="">
+					<span>Сохранить</span>
+				</button>
+			</form>
+			<div style="margin-top: 20px;" id="images-list">
+					<?php if($Model->item ['tour_id']) { echo Controller::Template("/dmn/tours/template/listphotos.phtml", array ('Data' => $ImageData )); } ?>
+			</div>
+		</div>
+	</div>
+</div>
+

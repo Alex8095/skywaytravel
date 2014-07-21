@@ -2,14 +2,20 @@
 class tourModelClass extends modelClass {
 	public $tourPrices;
 	public $tourCountrys;
-	public $toursDates;
+	public $tourDates;
+	public $tourImages;
+	public $tourDictionaryTypes = array ();
+	public $tourDictionaryTypesInner = array ();
+	public $tourDictionaryCountrys = array ();
+	public $tourDictionaryPrices = array ();
 
 	public function getItem($id) {
 		$this->item = $this->provider->getItem ( $id );
 		if ($this->item) {
-			$this->tourPrices = $this->provider->getTourCountrys ( $id );
-			$this->tourCountrys = $this->provider->getTourPrices ( $id );
-			$this->toursDates = $this->provider->getToursDates ( $id );
+			$this->tourPrices = $this->provider->getTourPrices ( $id );
+			$this->tourCountrys = $this->provider->getTourCountrys ( $id );
+			$this->tourDates = $this->provider->getTourDates ( $id );
+			$this->tourImages = $this->provider->getTourImages ( $id );
 		}
 	}
 
@@ -17,6 +23,15 @@ class tourModelClass extends modelClass {
 		$item = $this->provider->getItemByParam ( $param );
 		if ($item)
 			$this->getItem ( $item ["tour_id"] );
+	}
+
+	public function getModelDictionarys($param) {
+		if ($this->dictionaries == null)
+			$this->buildDictionaries ();
+		$this->tourDictionaryTypes = $this->dictionaries->do_dictionaries ( 83 );
+		$this->tourDictionaryTypesInner = array ("avia" => $this->dictionaries->do_dictionaries ( 84 ),"bus" => $this->dictionaries->do_dictionaries ( 85 ) );
+		$this->tourDictionaryCountrys = $this->dictionaries->do_dictionaries ( 82 );
+		$this->tourDictionaryPrices = $this->dictionaries->do_dictionaries ( 86 );
 	}
 
 	public function getList($param) {

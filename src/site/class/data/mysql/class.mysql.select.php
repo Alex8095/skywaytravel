@@ -117,7 +117,6 @@ class mysql_select {
 					}
 				}
 			unset ( $t_pages[count ( $t_pages ) - 1] );
-			// unset($this->buld_table[count($this->buld_table) - 1]);
 			return $this->table = $t_pages;
 		} catch ( Exception $exc ) {
 			echo ExceptionFullGet::ExcMysql ( $exc );

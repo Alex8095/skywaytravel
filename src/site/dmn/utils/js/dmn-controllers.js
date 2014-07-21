@@ -64,8 +64,8 @@ function sucessT( data ) {
 }
 
 /*	banners	*/
-function TDelete(cont, action, id) {
-	jQuery("#t-page-inner").load("/dmn/t-ajax.php?zone=dmn&cont=" + cont + "&action=" + action + "&dataType=html&id=" + id);
+function TDelete(cont, action, id, query, block) {
+	jQuery("#" + (block ? block : "t-page-inner")).load("/dmn/t-ajax.php?zone=dmn&cont=" + cont + "&action=" + action + "&dataType=html&id=" + id + (query ? query : ""));
 }
 function TDeleteImage(cont, action, id) {
 	jQuery.ajax({

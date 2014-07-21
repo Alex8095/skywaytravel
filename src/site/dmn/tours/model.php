@@ -1,80 +1,85 @@
 <?php
 class DMN_Tours extends Controller {
+	public $model;
 	public $dictionaries;
+	public $provider;
+	public $dictionarisType = array ();
+	public $dictionarisTypeInner = array ();
+	public $dictionarisTypeCountrys = array ();
+
+	public function __construct() {
+		$this->model = new tourModelClass ( new tourProviderClass ( "tours" ) );
+		$this->provider = new tourProviderClass ( "tours" );
+		// $this->getDictionaris ();
+		// $this->dictionarisType = $this->dictionaries->do_dictionaries ( 83 );
+		// $this->dictionarisTypeInner = array_merge ( $this->dictionaries->do_dictionaries ( 84 ), $this->dictionaries->do_dictionaries ( 85 ) );
+		// $this->dictionarisTypeCountrys = $this->dictionaries->do_dictionaries ( 82 );
+	}
 	
 	/* SPECIAL CODE */
 	public function getPage($array) {
 		$return = array ();
 		//
-		$Data = new mysql_select ( "news", "" );
-		$Data->select_table_query ( "select n.*, ci.ct_photo_id, ci.ct_photo_file_type from news n 
-									 left join ct_photos ci on ci.ct_id = n.news_id and ci.is_main = 1 and ci.lang_id={$_COOKIE['lang_id']}
-								     where n.lang_id = {$_COOKIE[lang_id]} order by n.pos desc", "id" );
+		$this->provider->getList ( $array );
 		//
-		$tListData = $this->Template ( "/dmn/tours/template/list.phtml", array ('Data' => $Data->table ) );
+		$tListData = $this->Template ( "/dmn/tours/template/list.phtml", array ('Data' => $this->provider->list,"Model" => $this ) );
 		$tAction = $this->Template ( "/dmn/tours/template/action.phtml", array ('Data' => "" ) );
 		return $this->Template ( "/dmn/utils/templates/admin/page.phtml", array ('tListData' => $tListData,"tAction" => $tAction ) );
 	}
-	// public function getList($array) {
-	// $return = array ();
-	// $Data = new mysql_select ( "news", " where n.lang_id = {$_COOKIE[lang_id]} by n.news_date desc" );
-	// $Data->select_table ( "id" );
-	// return $this->Template ( "/banner/list_banners.phtml", array ('Data' => $Data->table ) );
-	// }
-	public function getNews($array) {
-		$this->getDictionaris ();
-		$this->dictionaries->do_dictionaries ( 12 );
-		$newsTypeDict = $this->dictionaries->my_dct;
-		
+
+	public function getItem($array) {
+		$this->model->getModelDictionarys ( null );
 		//
-		$NewsData = NULL;
-		$NewsImageData = NULL;
+		// $NewsData = NULL;
+		// $NewsImageData = NULL;
 		if (isset ( $array ["id"] )) {
-			$Data = new mysql_select ( "news" );
-			$NewsData = $Data->select_table_id ( "where news_id = '{$array['id']}' and lang_id={$_COOKIE['lang_id']}" );
-			$catalogProvider = new catalogProviderClass ( 'catalog' );
-			$catalogProvider->GetCatalogItemImages ( array ("ct_id" => $array ["id"],"ph_dicts_id" => "'4fba172ec899c', '4fba176e2cec2'" ) );
-			$NewsImageData = $catalogProvider->resTable;
-			$catalogProvider->GetCatalogItemImages ( array ("ct_id" => $array ["id"],"ph_dict_id" => "4fbb5273dc1e5" ) );
-			$GalleryData = $catalogProvider->resTable;
+			$this->model->getItem ( $array ["id"] );
+			// $Data = new mysql_select ( "news" );
+			// $NewsData = $Data->select_table_id ( "where news_id = '{$array['id']}' and lang_id={$_COOKIE['lang_id']}" );
+			// $catalogProvider = new catalogProviderClass ( 'catalog' );
+			// $catalogProvider->GetCatalogItemImages ( array ("ct_id" => $array ["id"],"ph_dicts_id" => "'4fba172ec899c', '4fba176e2cec2'" ) );
+			// $NewsImageData = $catalogProvider->resTable;
+			// $catalogProvider->GetCatalogItemImages ( array ("ct_id" => $array ["id"],"ph_dict_id" => "4fbb5273dc1e5" ) );
+			// $GalleryData = $catalogProvider->resTable;
 		}
-		return $this->Template ( "/dmn/news/template/news_form.phtml", array ('NewsData' => $NewsData,"newsTypeDict" => $newsTypeDict,"ImageData" => $NewsImageData,"GalleryData" => $GalleryData ) );
+		return $this->Template ( "/dmn/tours/template/form.phtml", array ('ItemData' => $NewsData,"newsTypeDict" => $newsTypeDict,"ImageData" => $NewsImageData,"GalleryData" => $GalleryData,"Model" => $this->model ) );
 	}
 
-	public function saveNews($array) {
-		if ($array ['type_save'] == "new") {
-			$newsId = uniqid ();
-			$cl_sel_pages = new mysql_select ( 'news' );
-			$PosData = $cl_sel_pages->select_table_id ( "WHERE type_id = '{$array[type_id]}' order by pos desc" );
-			$array ["pos"] = $PosData ["pos"] + 1;
-			$sql = "insert into news (lang_id, news_id, news_title, news_description, news_summary, news_date, hide, type_id, is_show_index, news_send, news_url, news_w_title, news_w_description, news_w_keywords, pos) 
-					values(1, '$newsId', '" . mysql_real_escape_string ( $array [news_title] ) . "', '" . mysql_real_escape_string ( $array [news_description] ) . "', '" . mysql_real_escape_string ( $array [news_summary] ) . "', NOW(), '" . ($array ['hide'] ? "show" : "hide") . "', '$array[type_id]', " . ($array ['hide'] ? "1" : "0") . ", 'new', '" . mysql_real_escape_string ( $array ['news_url'] ? $array ['news_url'] : translitStrlover ( $array ['news_title'] ) ) . "', '" . mysql_real_escape_string ( $array [news_w_title] ) . "', '" . mysql_real_escape_string ( $array [news_w_description] ) . "', '" . mysql_real_escape_string ( $array [news_w_keywords] ) . "', " . ($array ['pos'] ? $array ['pos'] : "null") . "),
-					(2, '$newsId', '" . mysql_real_escape_string ( $array [news_title] ) . "', '" . mysql_real_escape_string ( $array [news_description] ) . "', '" . mysql_real_escape_string ( $array [news_summary] ) . "', NOW(), '" . ($array ['hide'] ? "show" : "hide") . "', '$array[type_id]', " . ($array ['hide'] ? "1" : "0") . ", 'new', '" . mysql_real_escape_string ( $array ['news_url'] ? $array ['news_url'] : translitStrlover ( $array ['news_title'] ) ) . "', '" . mysql_real_escape_string ( $array [news_w_title] ) . "', '" . mysql_real_escape_string ( $array [news_w_description] ) . "', '" . mysql_real_escape_string ( $array [news_w_keywords] ) . "', " . ($array ['pos'] ? $array ['pos'] : "null") . ")";
-			if (! mysql_query ( $sql )) {
-				$return ['success'] = false;
-				$return ['generalError'] = "error {$sql}";
-				return $return;
-			}
-			$return ['callbackArgs'] ["newActionID"] = $newsId;
-			$return ['success'] = true;
-		} else {
-			$arr_update = array (
-					"hide" => "'" . ($array ['hide'] ? "show" : "hide") . "',",
-					"is_show_index" => ($array ['is_show_index'] ? "1" : "0") . ",",
-					"news_description" => "'" . mysql_real_escape_string ( $array ['news_description'] ) . "',",
-					"news_summary" => "'" . mysql_real_escape_string ( $array ['news_summary'] ) . "',",
-					"news_title" => "'" . $array ['news_title'] . "',",
-					"news_url" => "'" . ($array ['news_url'] ? $array ['news_url'] : translitStrlover ( $array ['news_title'] )) . "',",
-					"news_w_description" => "'" . $array ['news_w_description'] . "',",
-					"news_w_keywords" => "'" . $array ['news_w_keywords'] . "',",
-					"type_id" => "'" . $array ['type_id'] . "',",
-					"news_w_title" => "'" . $array ['news_w_title'] . "',",
-					"pos" => ($array ['pos'] ? $array ['pos'] : "null") );
-			$Data = new mysql_select ( "news" );
-			$Data->update_table ( "WHERE news_id = '{$array['news_id']}' and lang_id={$_COOKIE['lang_id']}", $arr_update );
-			$return ['success'] = true;
+	public function saveTourPrice($param) {
+		$return = $this->model->provider->saveTourPrice ( $param );
+		$res = $this->model->provider->getTourPrices ( array ("tour_id" => $param ["tour_id"] ) );
+		$this->model->buildDictionaries();
+		$return ["callbackArgs"] ["template"] = $this->Template ( "/dmn/tours/template/listprices.phtml", array ('Data' => $res ["resTable"], "Model" => $this->model ) );
+		return $return;
+	}
+
+	public function saveTourDate($param) {
+		$return = $this->model->provider->saveTourDate ( $param );
+		$res = $this->model->provider->getTourDates ( array ("tour_id" => $param ["tour_id"] ) );
+		$this->model->buildDictionaries();
+		$return ["callbackArgs"] ["template"] = $this->Template ( "/dmn/tours/template/listdates.phtml", array ('Data' => $res ["resTable"], "Model" => $this->model ) );
+		return $return;
+	}
+
+	public function saveTourCountry($param) {
+		$return ['success'] = true;
+		if (! $param) {
+			$return ['generalError'] = "empty param list";
+			$return ['success'] = false;
+			return $return;
+		}
+		$this->model->provider->deleteTourCountry ( array ("tours_tour_id" => $param ["tour_id"] ) );
+		foreach ( $_POST as $key => $value ) {
+			if ($key != "tour_id")
+				$return = $this->model->provider->saveTourCountry ( array ("tours_tour_id" => $param ["tour_id"],"country_id" => $key ) );
 		}
 		return $return;
+	}
+
+	public function saveItem($array) {
+		return $this->model->provider->saveItem ( $array );
+		$res = $this->model->provider->getTourPrices ( array ("tour_id" => $array ["tour_id"] ) );
+		return $this->Template ( "/dmn/tours/template/listprices.phtml", array ('Data' => $res ["resTable"] ) );
 	}
 
 	public function saveImage($array) {
@@ -85,13 +90,25 @@ class DMN_Tours extends Controller {
 	}
 
 	public function delete($array) {
-		$sql = "delete from news where news_id= '{$array['id']}'";
-		if (! mysql_query ( $sql )) {
-			$return ['success'] = false;
-			$return ['error'] = "error {$sql}";
-			return $return;
-		}
+		$this->model->provider->deleteItem ( $array ["id"] );
+		$this->model->provider->deleteTourCountry ( array ("tours_tour_id" => $array ["id"] ) );
+		$this->model->provider->deleteTourPrice ( array ("tours_tour_id" => $array ["id"] ) );
+		$this->model->provider->deleteTourDate ( array ("tours_tour_id" => $array ["id"] ) );
 		return $this->getPage ( array () );
+	}
+
+	public function deletePrice($array) {
+		$this->model->buildDictionaries();
+		$this->model->provider->deleteTourPrice ( array ("tour_prices_id" => $array ["id"] ) );
+		$res = $this->model->provider->getTourPrices ( array ("tour_id" => $array ["tour_id"] ) );
+		return $this->Template ( "/dmn/tours/template/listprices.phtml", array ('Data' => $res ["resTable"], "Model" => $this->model ) );
+	}
+
+	public function deleteDate($array) {
+		$this->model->buildDictionaries();
+		$this->model->provider->deleteTourDate ( array ("tours_date_id" => $array ["id"] ) );
+		$res = $this->model->provider->getTourDates ( array ("tour_id" => $array ["tour_id"] ) );
+		return $this->Template ( "/dmn/tours/template/listdates.phtml", array ('Data' => $res ["resTable"], "Model" => $this->model ) );
 	}
 
 	public function getCatalogData() {

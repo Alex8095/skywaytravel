@@ -42,7 +42,7 @@ class tourProviderClass extends providerClass {
 
 	public function getList($param) {
 		$res = null;
-		$query = $this->getQuery ();
+		$query = $this->getQuery ( $param );
 		$cuontryQuery = "";
 		if ($param ["country_id"]) {
 			$cuntryQuery = " left join tour_countrys c on t.tour_id = c.tours_tour_id and c.country_id = '{$param[country_id]}'";
@@ -94,7 +94,7 @@ class tourProviderClass extends providerClass {
 			return $res;
 	}
 
-	public function getToursDates($param) {
+	public function getTourDates($param) {
 		$res = null;
 		$query = "";
 		if ($param ["tour_id"]) {
@@ -102,6 +102,19 @@ class tourProviderClass extends providerClass {
 		}
 		$this->mysql->select_table_query ( "select t.* from tours_dates t
 				WHERE 1= 1 {$query}", $this->id );
+		if (! empty ( $this->mysql->table )) {
+			return array ("resTable" => $this->mysql->table,"resBuildTable" => $this->mysql->table );
+		} else
+			return $res;
+	}
+
+	public function getTourImages($param) {
+		$res = null;
+		$query = "";
+		if ($param ["tour_id"]) {
+			$query .= " and t.ct_id = {$param[tour_id]}";
+		}
+		$this->mysql->select_table_query ( "select t.* from ct_photos t WHERE 1= 1 {$query}", $this->id );
 		if (! empty ( $this->mysql->table )) {
 			return array ("resTable" => $this->mysql->table,"resBuildTable" => $this->mysql->table );
 		} else
@@ -138,37 +151,82 @@ class tourProviderClass extends providerClass {
 	}
 
 	public function saveItem($param) {
-		if ($array ['type_save'] == "new") {
-			$newsId = uniqid ();
-			$cl_sel_pages = new mysql_select ( 'news' );
-			$PosData = $cl_sel_pages->select_table_id ( "WHERE type_id = '{$array[type_id]}' order by pos desc" );
-			$array ["pos"] = $PosData ["pos"] + 1;
-			$sql = "insert into news (lang_id, news_id, news_title, news_description, news_summary, news_date, hide, type_id, is_show_index, news_send, news_url, news_w_title, news_w_description, news_w_keywords, pos)
-			values(1, '$newsId', '" . mysql_real_escape_string ( $array [news_title] ) . "', '" . mysql_real_escape_string ( $array [news_description] ) . "', '" . mysql_real_escape_string ( $array [news_summary] ) . "', NOW(), '" . ($array ['hide'] ? "show" : "hide") . "', '$array[type_id]', " . ($array ['hide'] ? "1" : "0") . ", 'new', '" . mysql_real_escape_string ( $array ['news_url'] ? $array ['news_url'] : translitStrlover ( $array ['news_title'] ) ) . "', '" . mysql_real_escape_string ( $array [news_w_title] ) . "', '" . mysql_real_escape_string ( $array [news_w_description] ) . "', '" . mysql_real_escape_string ( $array [news_w_keywords] ) . "', " . ($array ['pos'] ? $array ['pos'] : "null") . "),
-			(2, '$newsId', '" . mysql_real_escape_string ( $array [news_title] ) . "', '" . mysql_real_escape_string ( $array [news_description] ) . "', '" . mysql_real_escape_string ( $array [news_summary] ) . "', NOW(), '" . ($array ['hide'] ? "show" : "hide") . "', '$array[type_id]', " . ($array ['hide'] ? "1" : "0") . ", 'new', '" . mysql_real_escape_string ( $array ['news_url'] ? $array ['news_url'] : translitStrlover ( $array ['news_title'] ) ) . "', '" . mysql_real_escape_string ( $array [news_w_title] ) . "', '" . mysql_real_escape_string ( $array [news_w_description] ) . "', '" . mysql_real_escape_string ( $array [news_w_keywords] ) . "', " . ($array ['pos'] ? $array ['pos'] : "null") . ")";
+		if ($param ['type_save'] == "new") {
+			$sql = sprintf ( "INSERT INTO `tours`(`name`, `type_id`, `type_inner_id`, `days`, `price_from`, `date_start`, `is_show`, `is_hot`, `description`, `summary`, `title`, `web_title`, `web_description`, `web_keywords`, `url`, `date_add`, `stars`, `img`) 
+											VALUES ('%s','%s','%s',%s,'%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s', NOW(), %s,'%s')",
+					 mysql_real_escape_string ( $param ["name"] ), 
+					mysql_real_escape_string ( $param ["type_id"] ), 
+					mysql_real_escape_string ( $param ["type_inner_id"] ), 
+					$param ["days"], $param ["price_from"], $param ["date_start"], ($array ['is_show'] ? "1" : "0"), ($array ['is_hot'] ? "1" : "0"), mysql_real_escape_string ( $param ["description"] ), mysql_real_escape_string ( $param ["summary"] ), mysql_real_escape_string ( $param ["title"] ), mysql_real_escape_string ( $param ["web_title"] ), mysql_real_escape_string ( $param ["web_description"] ), mysql_real_escape_string ( $param ["web_summary"] ), mysql_real_escape_string ( $param ['url'] ? $param ['url'] : translitStrlover ( $array ['name'] ) ), $param ["stars"], $param ["img"] );
+			
 			if (! mysql_query ( $sql )) {
 				$return ['success'] = false;
 				$return ['generalError'] = "error {$sql}";
 				return $return;
 			}
-			$return ['callbackArgs'] ["newActionID"] = $newsId;
+			$return ['callbackArgs'] ["newActionID"] = mysql_insert_id ();
 			$return ['success'] = true;
 		} else {
 			$arr_update = array (
-					"hide" => "'" . ($array ['hide'] ? "show" : "hide") . "',",
-					"is_show_index" => ($array ['is_show_index'] ? "1" : "0") . ",",
-					"news_description" => "'" . mysql_real_escape_string ( $array ['news_description'] ) . "',",
-					"news_summary" => "'" . mysql_real_escape_string ( $array ['news_summary'] ) . "',",
-					"news_title" => "'" . $array ['news_title'] . "',",
-					"news_url" => "'" . ($array ['news_url'] ? $array ['news_url'] : translitStrlover ( $array ['news_title'] )) . "',",
-					"news_w_description" => "'" . $array ['news_w_description'] . "',",
-					"news_w_keywords" => "'" . $array ['news_w_keywords'] . "',",
-					"type_id" => "'" . $array ['type_id'] . "',",
-					"news_w_title" => "'" . $array ['news_w_title'] . "',",
-					"pos" => ($array ['pos'] ? $array ['pos'] : "null") );
-			$Data = new mysql_select ( "news" );
-			$Data->update_table ( "WHERE news_id = '{$array['news_id']}' and lang_id={$_COOKIE['lang_id']}", $arr_update );
+					"stars" => ($param ['stars'] ? $param ['stars'] : "NULL") . ",",
+					"days" => ($param ['days'] ? $param ['days'] : "NULL") . ",",
+					"price_from" => "'" . mysql_real_escape_string ( $param ['price_from'] ) . "',",
+					"date_start" => ($param ['date_start'] ?  "'" .  $param ['date_start'] . "'" : "NULL") . ",",
+					"is_show" => ($param ['is_show'] ? "1" : "") . ",",
+					"is_hot" => ($param ['is_hot'] ? "1" : "0") . ",",
+					"description" => "'" . mysql_real_escape_string ( $param ['description'] ) . "',",
+					"summary" => "'" . mysql_real_escape_string ( $param ['summary'] ) . "',",
+					"name" => "'" . $param ['name'] . "',",
+					"url" => "'" . ($param ['url'] ? $param ['url'] : translitStrlover ( $param ['name'] )) . "',",
+					"web_description" => "'" . $param ['web_description'] . "',",
+					"web_keywords" => "'" . $param ['web_keywords'] . "',",
+					"web_title" => "'" . $param ['web_title'] . "',",
+					"type_id" => "'" . $param ['type_id'] . "',",
+					"type_inner_id" => "'" . $param ['type_inner_id'] . "',",
+					"img" => "'" . $param ['img'] . "'" );
+			$Data = new mysql_select ( $this->table );
+			$Data->update_table ( "WHERE tour_id = {$param['tour_id']}", $arr_update );
 			$return ['success'] = true;
+			$return ['callbackArgs'] ["newActionID"] = $param ['tour_id'];
+		}
+		return $return;
+	}
+
+	public function saveTourMainImage($param) {
+		$arrUpdate = array ("img" => "'" . $param ['img'] . "'" );
+		$Data = new mysql_select ( $this->table );
+		$Data->update_table ( "WHERE tour_id = '{$param['tour_id']}'", $arr_update );
+		$return ['success'] = true;
+		$return ['callbackArgs'] ["newActionID"] = $param ['tour_id'];
+		return $return;
+	}
+
+	public function saveTourPrice($param) {
+		$return ['success'] = true;
+		$sql = sprintf ( "INSERT INTO `tour_prices`(`tours_tour_id`, `tour_prices`, `type_id`) VALUES (%s,%s,%s)", $param ["tour_id"], "'" . $param ["price"] . "'", "'" . $param ["type_id"] . "'" );
+		if (! mysql_query ( $sql )) {
+			$return ['success'] = false;
+			$return ['generalError'] = "error {$sql}";
+		}
+		return $return;
+	}
+
+	public function saveTourCountry($param) {
+		$return ['success'] = true;
+		$sql = sprintf ( "INSERT INTO `tour_countrys`(`tours_tour_id`, `country_id`) VALUES (%s, %s)", $param ["tours_tour_id"], "'" . $param ["country_id"] . "'" );
+		if (! mysql_query ( $sql )) {
+			$return ['success'] = false;
+			$return ['generalError'] = "error {$sql}";
+		}
+		return $return;
+	}
+
+	public function saveTourDate($param) {
+		$return ['success'] = true;
+		$sql = sprintf ( "INSERT INTO `tours_dates`(`tours_tour_id`, `date`) VALUES (%s,%s)", $param ["tour_id"], "'" . $param ["date"] . "'" );
+		if (! mysql_query ( $sql )) {
+			$return ['success'] = false;
+			$return ['generalError'] = "error {$sql}";
 		}
 		return $return;
 	}
@@ -181,19 +239,67 @@ class tourProviderClass extends providerClass {
 			$return ['error'] = "error {$sql}";
 			return $return;
 		}
-		$sql = "delete from tour_prices where tours_tour_id= {$id}";
-		if (! mysql_query ( $sql )) {
-			$return ['success'] = false;
-			$return ['error'] = "error {$sql}";
-			return $return;
-		}
-		$sql = "delete from tour_countrys where tours_tour_id= {$id}";
-		if (! mysql_query ( $sql )) {
-			$return ['success'] = false;
-			$return ['error'] = "error {$sql}";
-			return $return;
-		}
 		return $return;
+	}
+
+	public function deleteTourPrice($param) {
+		$return ['success'] = true;
+		$query = "";
+		if ($param ["tour_prices_id"])
+			$query = sprintf ( " %s tour_prices_id = %s", ($query ? " and " : ""), $param ["tour_prices_id"] );
+		if ($param ["tours_tour_id"])
+			$query = sprintf ( " %s tours_tour_id = %s", ($query ? " and " : ""), $param ["tours_tour_id"] );
+		if (empty ( $query )) {
+			$return ['success'] = false;
+			$return ['error'] = "enpty query";
+			return $return;
+		}
+		$sql = "delete from tour_prices where {$query}";
+		if (! mysql_query ( $sql )) {
+			$return ['success'] = false;
+			$return ['error'] = "error {$sql}";
+			return $return;
+		}
+	}
+
+	public function deleteTourCountry($param) {
+		$return ['success'] = true;
+		$query = "";
+		if ($param ["tour_countrys_id"])
+			$query = sprintf ( " %s tour_countrys_id = %s", ($query ? " and " : ""), $param ["tour_countrys_id"] );
+		if ($param ["tours_tour_id"])
+			$query = sprintf ( " %s tours_tour_id = %s", ($query ? " and " : ""), $param ["tours_tour_id"] );
+		if (empty ( $query )) {
+			$return ['success'] = false;
+			$return ['error'] = "enpty query";
+			return $return;
+		}
+		$sql = "delete from tour_countrys where {$query}";
+		if (! mysql_query ( $sql )) {
+			$return ['success'] = false;
+			$return ['error'] = "error {$sql}";
+			return $return;
+		}
+	}
+
+	public function deleteTourDate($param) {
+		$return ['success'] = true;
+		$query = "";
+		if ($param ["tours_date_id"])
+			$query = sprintf ( " %s tours_date_id = %s", ($query ? " and " : ""), $param ["tours_date_id"] );
+		if ($param ["tours_tour_id"])
+			$query = sprintf ( " %s tours_tour_id = %s", ($query ? " and " : ""), $param ["tours_tour_id"] );
+		if (empty ( $query )) {
+			$return ['success'] = false;
+			$return ['error'] = "enpty query";
+			return $return;
+		}
+		$sql = "delete from tours_dates where {$query}";
+		if (! mysql_query ( $sql )) {
+			$return ['success'] = false;
+			$return ['error'] = "error {$sql}";
+			return $return;
+		}
 	}
 
 }

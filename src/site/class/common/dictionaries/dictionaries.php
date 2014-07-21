@@ -41,28 +41,28 @@ class dictionariesClass {
 		return $tbl;
 		$i = 0;
 		if (mysql_num_rows ( $tbl ))
-			while ( $t_pages[] = mysql_fetch_array ( $tbl ) ) {
-				$this->buld_table[$t_pages[$i][page_id]] = $t_pages[$i];
+			while ( $t_pages [] = mysql_fetch_array ( $tbl ) ) {
+				$this->buld_table [$t_pages [$i] [page_id]] = $t_pages [$i];
 				$i ++;
 			}
-		unset ( $t_pages[count ( $t_pages ) - 1] );
-		unset ( $this->buld_table[count ( $this->buld_table ) - 1] );
+		unset ( $t_pages [count ( $t_pages ) - 1] );
+		unset ( $this->buld_table [count ( $this->buld_table ) - 1] );
 		return $this->table = $t_pages;
 	}
 	// # постpоение массива словарей
 	public function buid_dictionaries($table, $where = NULL, $order = NULL) {
 		$tbl = $this->select_table ( $table, $where, $order );
 		$i = 0;
-		while ( $t_dictionaries[] = mysql_fetch_array ( $tbl ) ) {
+		while ( $t_dictionaries [] = mysql_fetch_array ( $tbl ) ) {
 			// слове Киев удаляем первую букву
-			if ($t_dictionaries[$i]['dict_id'] == '4c3eb839f144e') {
-				$t_dictionaries[$i][dict_name] = substr ( $t_dictionaries[$i][dict_name], 1, strlen ( $t_dictionaries[$i][dict_name] ) );
+			if ($t_dictionaries [$i] ['dict_id'] == '4c3eb839f144e') {
+				$t_dictionaries [$i] [dict_name] = substr ( $t_dictionaries [$i] [dict_name], 1, strlen ( $t_dictionaries [$i] [dict_name] ) );
 			}
 			
-			$this->buld_table[$t_dictionaries[$i]['dict_id']] = $t_dictionaries[$i];
+			$this->buld_table [$t_dictionaries [$i] ['dict_id']] = $t_dictionaries [$i];
 			$i ++;
 		}
-		unset ( $t_dictionaries[count ( $t_dictionaries ) - 1] );
+		unset ( $t_dictionaries [count ( $t_dictionaries ) - 1] );
 		// unset($this->buld_table[count($this->buld_table) - 1]);
 		return $this->table = $t_dictionaries;
 	}
@@ -70,11 +70,11 @@ class dictionariesClass {
 	public function buid_dictionaries_list($table, $where = NULL, $order = NULL) {
 		$tbl = $this->select_table ( $table, $where, $order );
 		$i = 0;
-		while ( $t_dictionaries_list[] = mysql_fetch_array ( $tbl ) ) {
-			$this->buld_table_list[$t_dictionaries_list[$i]['ld_id']] = $t_dictionaries_list[$i];
+		while ( $t_dictionaries_list [] = mysql_fetch_array ( $tbl ) ) {
+			$this->buld_table_list [$t_dictionaries_list [$i] ['ld_id']] = $t_dictionaries_list [$i];
 			$i ++;
 		}
-		unset ( $t_dictionaries_list[count ( $t_dictionaries_list ) - 1] );
+		unset ( $t_dictionaries_list [count ( $t_dictionaries_list ) - 1] );
 		// unset($this->buld_table_list[count($this->buld_table_list) - 1]);
 		return $this->table_list = $t_dictionaries_list;
 	}
@@ -83,11 +83,11 @@ class dictionariesClass {
 	public function buid_propertis_list($table, $where = NULL, $order = NULL) {
 		$tbl = $this->select_table ( $table, $where, $order );
 		$i = 0;
-		while ( $t_dictionaries_list[] = mysql_fetch_array ( $tbl ) ) {
-			$this->buld_table_list[$t_dictionaries_list[$i][car_prop_id]] = $t_dictionaries_list[$i];
+		while ( $t_dictionaries_list [] = mysql_fetch_array ( $tbl ) ) {
+			$this->buld_table_list [$t_dictionaries_list [$i] [car_prop_id]] = $t_dictionaries_list [$i];
 			$i ++;
 		}
-		unset ( $t_dictionaries_list[count ( $t_dictionaries_list ) - 1] );
+		unset ( $t_dictionaries_list [count ( $t_dictionaries_list ) - 1] );
 		// unset($this->buld_table_list[count($this->buld_table_list) - 1]);
 		return $this->table_list = $t_dictionaries_list;
 	}
@@ -99,17 +99,17 @@ class dictionariesClass {
 	public function do_dictionaries($value_id) 	// йди словаря
 	{
 		$this->my_dct = NULL;
-		$this->my_list_dct = $this->buld_table_list[$value_id];
+		$this->my_list_dct = $this->buld_table_list [$value_id];
 		$j = 0;
 		for($i = 0; $i < count ( $this->table ); $i ++) {
-			if ($this->table[$i][ld_id] == $value_id) {
+			if ($this->table [$i] [ld_id] == $value_id) {
 				// echo "<br>{$value_id}<hr><br>";
 				// echo $this->table[$i][ld_id]."<br>";
-				$this->my_dct[$j] = $this->table[$i];
+				$this->my_dct [$j] = $this->table [$i];
 				$j ++;
 			}
 		}
-		return;
+		return $this->my_dct;
 	}
 	
 	// функция вызывает функцию this->do_dictionaries
@@ -117,7 +117,7 @@ class dictionariesClass {
 	// и он ищет сначала какой это словарь а потом вызывает функцию
 	public function have_some_id($value_id) 	// йди списка словаря
 	{
-		return $this->do_dictionaries ( $this->buld_table[$value_id][ld_id] );
+		return $this->do_dictionaries ( $this->buld_table [$value_id] [ld_id] );
 	}
 	
 	// ункция возвращает значение указаного поля с таблицы значений списка словаря и с таблицы словаря
@@ -125,9 +125,9 @@ class dictionariesClass {
 	$name_field, 	// мя поля списка словаря
 	$name_field_list = NULL) 	// мя поля словаря
 	{
-		$this->field_value_dct = $this->buld_table[$value_id][$name_field];
+		$this->field_value_dct = $this->buld_table [$value_id] [$name_field];
 		if ($name_field_list)
-			$this->field_value_list_dct = $this->buld_table_list[$this->buld_table[$value_id]['ld_id']][$name_field_list];
+			$this->field_value_list_dct = $this->buld_table_list [$this->buld_table [$value_id] ['ld_id']] [$name_field_list];
 		return;
 	}
 	
@@ -137,33 +137,34 @@ class dictionariesClass {
 	$name_field_paremt, 	// мя поля списка parent
 	$name_field_list = NULL) 	// мя поля словаря
 	{
-		$parent = $this->buld_table[$value_id][parent_id];
-		$return_parent_value = $this->buld_table[$parent][$name_field_paremt];
-		$this->field_value_dct = $this->buld_table[$value_id][$name_field];
+		$parent = $this->buld_table [$value_id] [parent_id];
+		$return_parent_value = $this->buld_table [$parent] [$name_field_paremt];
+		$this->field_value_dct = $this->buld_table [$value_id] [$name_field];
 		if ($name_field_list)
-			$this->field_value_list_dct = $this->buld_table_list[$this->buld_table[$value_id]['ld_id']][$name_field_list];
+			$this->field_value_list_dct = $this->buld_table_list [$this->buld_table [$value_id] ['ld_id']] [$name_field_list];
 		return $return_parent_value;
 	}
 	
 	//
 	public function prerare_to_search_model($arr_build) {
 		for($i = 0; $i < count ( $arr_build ); $i ++) {
-			$return[$i] = $this->prerare_to_search_model_in ( $arr_build[$i]['dict_id'] );
+			$return [$i] = $this->prerare_to_search_model_in ( $arr_build [$i] ['dict_id'] );
 			// if($this->table[$i][ld_id])
 			// echo $i;
 		}
 		return $return;
 	}
+
 	function getDictValue($data, $key) {
-		return $this->buld_table[$data[$key]]['dict_name'];
+		return $this->buld_table [$data [$key]] ['dict_name'];
 	}
 	
 	//
 	public function prerare_to_search_model_in($value_id = NULL) {
 		$j = 1;
 		for($i = 0; $i < count ( $this->table ); $i ++) {
-			if ($this->table[$i][parent_id] == $value_id) {
-				$return[$j] = $this->table[$i];
+			if ($this->table [$i] [parent_id] == $value_id) {
+				$return [$j] = $this->table [$i];
 				$j ++;
 			}
 		}
@@ -172,12 +173,12 @@ class dictionariesClass {
 	
 	// переделка массива в вид "array("id"=> "value")"
 	public function changes_of_array_field($array, $name_field, $name_id = NULL) {
-		$return = array();
+		$return = array ();
 		foreach ( $array as $key => $value ) {
 			$arr_id = $key;
 			if ($name_id)
-				$arr_id = $array[$key][$name_id];
-			$return[$arr_id] = $array[$key][$name_field];
+				$arr_id = $array [$key] [$name_id];
+			$return [$arr_id] = $array [$key] [$name_field];
 		}
 		return $return;
 	}
@@ -187,12 +188,9 @@ class dictionariesClass {
 	 */
 	public function BuildArrayParentChild($arr) {
 		for($i = 0; $i < count ( $arr ); $i ++) {
-			if (empty ( $arr[$i]['parent_id'] )) {
-				$return[count ( $return )] = array(
-						$arr[$i]['dict_id'],
-						'NULL',
-						0);
-				$return = $this->BuildArrayParentChildIn ( $arr, $arr[$i]['dict_id'], $return, 0 );
+			if (empty ( $arr [$i] ['parent_id'] )) {
+				$return [count ( $return )] = array ($arr [$i] ['dict_id'],'NULL',0 );
+				$return = $this->BuildArrayParentChildIn ( $arr, $arr [$i] ['dict_id'], $return, 0 );
 			}
 		}
 		return $return;
@@ -206,19 +204,18 @@ class dictionariesClass {
 		for($i = 0; $i < count ( $arr ); $i ++) {
 			// echo "dict_id search -{$searchID}<br>";
 			// echo "for parent_id -{$arr[$i]['parent_id']}<br>";
-			if ($arr[$i]['parent_id'] == $searchID) {
+			if ($arr [$i] ['parent_id'] == $searchID) {
 				// echo "dict_id search -{$searchID} -> for parent_id -{$arr[$i]['parent_id']}<br><br>";
-				$return[count ( $return )] = array(
-						$arr[$i]['dict_id'],
-						$searchID,
-						$in);
-				$return = $this->BuildArrayParentChildIn ( $arr, $arr[$i]['dict_id'], $return, $in );
+				$return [count ( $return )] = array ($arr [$i] ['dict_id'],$searchID,$in );
+				$return = $this->BuildArrayParentChildIn ( $arr, $arr [$i] ['dict_id'], $return, $in );
 			}
 		}
 		return $return;
 	}
+
 	public function getItemValue($dict_id) {
-		return $this->buld_table[$dict_id]["dict_name"];
+		return $this->buld_table [$dict_id] ["dict_name"];
 	}
+
 }
 ?>

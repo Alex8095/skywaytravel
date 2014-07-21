@@ -1,0 +1,20 @@
+<?php if (count($Data) > 0)  : ?>
+<table class="table-list" cellspacing="0" cellpadding="0" border="0">
+	<tr class="headings">
+		<td width=50>ID</td>
+		<td width=100>Дата</td>
+		<td width=150></td>
+	</tr>
+	<tbody>
+		<?php foreach ( $Data as $key => $value ) : ?>
+		<tr>
+			<td><?php echo $value["tours_date_id"]?></td>
+			<td><?php echo $value["date"];?></td>
+			<td><a href="#" onclick="TDelete('DMN_Tours', 'deleteDate', '<?php echo $value["tours_date_id"]?>', '&tour_id=<?php echo $value["tours_tour_id"]?>', 'dates-list')" title="Удалить">Удалить</a></td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php else: ?>
+	<b>Ничего не найдено по Вашему запросу!</b>
+<?php endif; ?>
