@@ -1,6 +1,9 @@
 function TShowPage(cont, action) {
 	jQuery("#t-page-inner").load("/dmn/t-ajax.php?zone=dmn&cont=" + cont + "&action=" + action + "&dataType=html");
 	jQuery("#t-page").show();
+	
+	$("a").removeClass("menu-link-a");
+	$(".element-" + cont).addClass("menu-link-a");
 }
 
 jQuery(document).ready( function($) {
@@ -18,6 +21,10 @@ jQuery(document).ready( function($) {
 		}
 		return false;
 	});
+	
+	
+	
+	
 });
 
 /*	special code	*/

@@ -8,12 +8,12 @@
 	</tr>
 	<tbody>
 		<?php foreach ( $Data as $key => $value ) : ?>
-		<tr class="image-<?php echo $value["ct_photo_id"]?>">
-			<td><?php echo $value["ct_photo_id"]?></td>
-			<td><?php if($value["ct_photo_id"]):?><img width="100" src="../../files/images/<?php echo $folder;?>/<?php echo $value["ct_photo_id"]?>.<?php echo $value["ct_photo_file_type"]?>"/><?php endif;?></td>
-			<td><?php echo ($value["ct_photo_title"] ? $value["ct_photo_title"] : $value["dict_name"]); ?></td>
-			<td width=150><a href="#" onclick="TDeleteImage('DMN_Catalog', 'deleteImage', '<?php echo $value["ct_photo_id"]?>')" title="Удалить">Удалить</a></td>
-		</tr>
+			<tr class="image-<?php echo $value["ct_photo_id"]?>">
+				<td><?php echo $value["ct_photo_id"]?></td>
+				<td><?php if($value["ct_photo_id"]):?><img width="100" src="../../files/images/<?php echo $folder;?>/<?php echo $value["ct_photo_id"]?>.<?php echo $value["ct_photo_file_type"]?>"/><?php endif;?></td>
+				<td><?php echo ($value["ct_photo_title"] ? $value["ct_photo_title"] : $value["dict_name"]); ?></td>
+				<td width=150><a href="#" onclick="TDeleteImage('DMN_Catalog', 'deleteImage', '<?php echo $value["ct_photo_id"]?>')" title="Удалить">Удалить</a></td>
+			</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>

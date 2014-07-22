@@ -195,7 +195,7 @@ class tourProviderClass extends providerClass {
 	public function saveTourMainImage($param) {
 		$arrUpdate = array ("img" => "'" . $param ['img'] . "'" );
 		$Data = new mysql_select ( $this->table );
-		$Data->update_table ( "WHERE tour_id = '{$param['tour_id']}'", $arr_update );
+		$Data->update_table ( "WHERE tour_id = {$param['tour_id']}", $arrUpdate );
 		$return ['success'] = true;
 		$return ['callbackArgs'] ["newActionID"] = $param ['tour_id'];
 		return $return;

@@ -54,3 +54,4 @@ $routes ['addobject'] ['opisanie'] = array (3 => 'im_id' );
 $routes ['imageservice'] ['getimagecolor'] = array (3 => 'image_id' );
 $routes ['tours'] ['avia'] = array (3 => 'page_id', 4 => 'url' );
 $routes ['tours'] ['bus'] = array (3 => 'page_id', 4 => 'url' );
+$routes ['tours'] ['burning'] = array (3 => 'page_id', 4 => 'url' );

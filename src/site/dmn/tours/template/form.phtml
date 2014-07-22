@@ -3,7 +3,6 @@ define ( 'SLASH', '/' );
 define ( 'DOC_ROOT', $_SERVER ['DOCUMENT_ROOT'] );
 require_once DOC_ROOT . '/dmn/utils/template.ajax/js2.css.php';
 global $tbl;
-// формирование стран и городов
 $Model->dictionaries->do_dictionaries ( 21 );
 $typeImages = $Model->dictionaries->my_dct;
 
@@ -119,7 +118,8 @@ $(function() {
 						<?php echo (isCheckedCountry($Model->tourCountrys ['resBuildTable'], $value["dict_id"])? ' checked="checked" ' : ''); ?> size="40" name="<?php echo $value["dict_id"]?>" type="checkbox"> <br /> <br />
 				<?php endforeach;?>
 	 			</fieldset>
-				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="tour_id" type="hidden"> <input value="Сохранить" name="Submit" onClick=""
+				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="tour_id" type="hidden">
+				 <input value="Сохранить" name="Submit" onClick=""
 					type="submit" class="button" />
 			</form>
 		</div>
@@ -172,21 +172,27 @@ $(function() {
 			</div>
 		</div>
 		<div id="tabs-4">
+			<?php 
+				$callback = array("nameClass" => "DMN_Tours", "nameMethod" => "setMainImage");
+			?>
 			<form action="/dmn/t-ajax.php?zone=dmn&cont=DMN_tour&action=saveOneImage&dataType=html" enctype="multipart/form-data" id='imageForm' class="zpFormWinXP" method="POST">
 				<fieldset>
-					<input class='zpForm' type="file" name="image" id="image"> <br /> <label class='zpFormLabel'>Тип изображения</label> <select onChange="changeMainImage();" name="ct_photo_type_id"
-						id="image_ct_photo_type_id" class="zpFormRequired">
+					<input class='zpForm' type="file" name="image" id="image"> <br /> <label class='zpFormLabel'>Тип изображения</label> 
+					<select onChange="changeMainImage();" name="ct_photo_type_id" id="image_ct_photo_type_id" class="zpFormRequired">
 							<?php echo sel_parent_id ( $typeImages, '', 'dict_id', 'dict_name' ); ?>
 						</select> <br />
 				</fieldset>
-				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="ct_id" id="imageForm-tour_id" type="hidden"> <input type="hidden"
-					name="is_small" value="false" /> <input type="hidden" name="folder" value="tour" /> <input type="hidden" name="is_main" id="is_main" value="0" />
-				<button style="" onclick="SaveImage('DMN_Catalog', 'saveGalleryOneImage')" class="" type="button" id="">
+				<input class='zpForm' value="<?php echo ($Model->item ['tour_id'] ? $Model->item ['tour_id'] : "") ;?>" size="13" name="ct_id" id="imageForm-tour_id" type="hidden"> 
+				<input type="hidden" name="is_small" value="true" />
+				<input type="hidden" name="folder" value="ct_photos" /> 
+				<input type="hidden" name="is_main" id="is_main" value="0" />
+				<input type="hidden" name="callback" value="<?php echo str_replace('"', "'", json_encode($callback)); ?>"/> 
+				<button style="" onclick="SaveImage('DMN_Catalog', 'saveGalleryImage')" class="" type="button" id="">
 					<span>Сохранить</span>
 				</button>
 			</form>
 			<div style="margin-top: 20px;" id="images-list">
-					<?php if($Model->item ['tour_id']) { echo Controller::Template("/dmn/tours/template/listphotos.phtml", array ('Data' => $ImageData )); } ?>
+					<?php if($Model->item ['tour_id']) { echo DMN_Catalog::getGallery(array("ct_id" => $Model->item ['tour_id'])); } ?>
 			</div>
 		</div>
 	</div>

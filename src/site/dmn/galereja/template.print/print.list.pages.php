@@ -51,7 +51,17 @@ for($i = 0; $i < count ( $CH ->ArrFormation ); $i ++) {
 		<td width=80>Активность</td>
 		<td width=150>Тип</td>
 	</tr>
-		<?php
-		echo $pagesReturn;
-		?>
-	</table>
+	<?php foreach ($catalogData as $key => $value):?>
+		<tr class="">
+			<td width=10><input type="radio" value="<?php echo $value["ct_id"]?>" name="ct_id"/></td>
+			<td width=50><?php echo $value["ct_id"]?></td>
+			<td width=100><?php if($value["ct_photo_id"]): ?><img src="../../files/images/ct_photos/sm_<?php echo $value["ct_photo_id"]?>.<?php echo $value["ct_photo_file_type"]?>" width="100"/><?php endif;?></td>
+			<td><?php echo $value["ct_name"]?></td>
+			<td><?php echo $value["ct_title"]?></td>
+			<td width=150><?php echo date("d.m.Y", strtotime($value["date"]))?></td>
+			<td width=80><?php echo $value["pos"]?></td>
+			<td width=80><?php echo ($value["hide"] ? "Да": "Нет"); ?></td>
+			<td width=150><?php echo $dictionaries->buld_table[$value["ct_id"]]['dict_name']?></td>
+		</tr>
+	<?php endforeach;?>
+</table>

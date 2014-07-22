@@ -5,8 +5,12 @@ class catalogModelClass extends modelClass {
 		$this->item = $this->provider->getItem ( $id );
 	}
 
+	public function getItemParam($params) {
+		$this->item = $this->provider->getItemParam ( $params );
+	}
+
 	public function getList($param) {
-		$res = $this->provider->getList ( $param );
+		$res = $this->provider->GetCatalogList ( $param );
 		$this->list = $res ["resTable"];
 		$this->listData = $res ["resBuildTable"];
 	}

@@ -291,7 +291,7 @@ if ($_POST ['retention'] == 'add_img_gal') {
 		//если вклчено уменшение делаем
 		if (isset ( $_POST ['is_small'] )) {
 			// *** 1) Initialise / load image
-			$resizeObj = new resize ( $fileDir . "" . $fileName );
+			$resizeObj = new resizeImageClass ( $fileDir . "" . $fileName );
 			// *** 2) Resize image (options: exact, portrait, landscape, auto, crop)
 			$resizeObj->resizeImage ( $ImgPropLogo ['ImgW'], $ImgPropLogo ['ImgH'], 'crop' );
 			// *** 3) Save image

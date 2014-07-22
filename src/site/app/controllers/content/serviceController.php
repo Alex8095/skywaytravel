@@ -6,9 +6,12 @@ class serviceController extends aControllerClass {
 	}
 
 	public function visa($param) {
+		$model = new catalogModelClass ( new catalogProviderClass ( "catalog" ) );
 		if ($this->routingObj->getParamItem ( "visa_id" )) {
+			$model->getItemParam ( array ("ct_url" => $this->routingObj->getParamItem ( "visa_id" ) ) );
 			return $this->View ( array ("Model" => $model ), "service/visa/details" );
 		}
+		$model->getList ( array ("hide" => "1","dict_id" => "4fb609173b483","lang_id" => $_COOKIE ["lang_id"] ) );
 		return $this->View ( array ("Model" => $model ) );
 	}
 

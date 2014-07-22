@@ -25,14 +25,18 @@ while (($file = readdir($dir)) !== false) {
 			
 				// Отмечаем текущий пункт другим стилем
 				if(strpos($_SERVER['PHP_SELF'], $file) !== false)
-				$style =  "class=\"menu-link-a\"";
+					$style =  "menu-link-a";
 				else
-				$style = "class=\"menu-link-na\"";
+					$style = "menu-link-na";
 				$block_action = trim ($block_action);
-				$menu_item =  sprintf("<div class=\"menu-item\"><a id=\"main-menu-item-%s\" title=\"%s\" href=\"%s\" %s onclick=\"%s\">%s</a><div id=\"%s\"></div></div>", 
+				$cssClassElement = str_replace("TShowPage('", "", $block_action);
+				$cssClassElement = substr($cssClassElement, 0, strpos($cssClassElement, "'"));
+				$menu_item =  sprintf("<div class=\"menu-item\"><a id=\"main-menu-item-%s\" title=\"%s\" href=\"%s\" class=\"%s element-%s\" onclick=\"%s\">%s</a><div id=\"%s\"></div></div>", 
 									  $file, 
 									  $block_name, 
-									  ($block_action == "false" ? "../" . $file : "#"), $style, 
+									  ($block_action == "false" ? "../" . $file : "#"),
+									  $style, 
+									  $cssClassElement,
 									  ($block_action == "false" ? "" : $block_action ), 
 									  $block_name, 
 									  $file);

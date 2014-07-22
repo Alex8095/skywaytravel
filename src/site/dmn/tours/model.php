@@ -20,9 +20,10 @@ class DMN_Tours extends Controller {
 	public function getPage($array) {
 		$return = array ();
 		//
+		$this->model->getModelDictionarys ( null );
 		$this->provider->getList ( $array );
 		//
-		$tListData = $this->Template ( "/dmn/tours/template/list.phtml", array ('Data' => $this->provider->list,"Model" => $this ) );
+		$tListData = $this->Template ( "/dmn/tours/template/list.phtml", array ('Data' => $this->provider->list,"Model" => $this->model ) );
 		$tAction = $this->Template ( "/dmn/tours/template/action.phtml", array ('Data' => "" ) );
 		return $this->Template ( "/dmn/utils/templates/admin/page.phtml", array ('tListData' => $tListData,"tAction" => $tAction ) );
 	}
@@ -48,16 +49,16 @@ class DMN_Tours extends Controller {
 	public function saveTourPrice($param) {
 		$return = $this->model->provider->saveTourPrice ( $param );
 		$res = $this->model->provider->getTourPrices ( array ("tour_id" => $param ["tour_id"] ) );
-		$this->model->buildDictionaries();
-		$return ["callbackArgs"] ["template"] = $this->Template ( "/dmn/tours/template/listprices.phtml", array ('Data' => $res ["resTable"], "Model" => $this->model ) );
+		$this->model->buildDictionaries ();
+		$return ["callbackArgs"] ["template"] = $this->Template ( "/dmn/tours/template/listprices.phtml", array ('Data' => $res ["resTable"],"Model" => $this->model ) );
 		return $return;
 	}
 
 	public function saveTourDate($param) {
 		$return = $this->model->provider->saveTourDate ( $param );
 		$res = $this->model->provider->getTourDates ( array ("tour_id" => $param ["tour_id"] ) );
-		$this->model->buildDictionaries();
-		$return ["callbackArgs"] ["template"] = $this->Template ( "/dmn/tours/template/listdates.phtml", array ('Data' => $res ["resTable"], "Model" => $this->model ) );
+		$this->model->buildDictionaries ();
+		$return ["callbackArgs"] ["template"] = $this->Template ( "/dmn/tours/template/listdates.phtml", array ('Data' => $res ["resTable"],"Model" => $this->model ) );
 		return $return;
 	}
 
@@ -74,6 +75,11 @@ class DMN_Tours extends Controller {
 				$return = $this->model->provider->saveTourCountry ( array ("tours_tour_id" => $param ["tour_id"],"country_id" => $key ) );
 		}
 		return $return;
+	}
+
+	public function setMainImage($id, $image) {
+		$this->model = new tourModelClass ( new tourProviderClass ( "tours" ) );
+		$this->model->provider->saveTourMainImage ( array ("tour_id" => $id,"img" => $image ) );
 	}
 
 	public function saveItem($array) {
@@ -98,17 +104,17 @@ class DMN_Tours extends Controller {
 	}
 
 	public function deletePrice($array) {
-		$this->model->buildDictionaries();
+		$this->model->buildDictionaries ();
 		$this->model->provider->deleteTourPrice ( array ("tour_prices_id" => $array ["id"] ) );
 		$res = $this->model->provider->getTourPrices ( array ("tour_id" => $array ["tour_id"] ) );
-		return $this->Template ( "/dmn/tours/template/listprices.phtml", array ('Data' => $res ["resTable"], "Model" => $this->model ) );
+		return $this->Template ( "/dmn/tours/template/listprices.phtml", array ('Data' => $res ["resTable"],"Model" => $this->model ) );
 	}
 
 	public function deleteDate($array) {
-		$this->model->buildDictionaries();
+		$this->model->buildDictionaries ();
 		$this->model->provider->deleteTourDate ( array ("tours_date_id" => $array ["id"] ) );
 		$res = $this->model->provider->getTourDates ( array ("tour_id" => $array ["tour_id"] ) );
-		return $this->Template ( "/dmn/tours/template/listdates.phtml", array ('Data' => $res ["resTable"], "Model" => $this->model ) );
+		return $this->Template ( "/dmn/tours/template/listdates.phtml", array ('Data' => $res ["resTable"],"Model" => $this->model ) );
 	}
 
 	public function getCatalogData() {

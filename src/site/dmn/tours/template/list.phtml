@@ -21,21 +21,21 @@
 		<?php foreach ( $Data as $key => $value ) : ?>
 		<tr>
 			<td width="10"><?php echo $value["tour_id"]?></td>
-			<td><?php if($value["ct_photo_id"]):?><img width="100" src="../../files/images/news/<?php echo $value["ct_photo_id"]?>.<?php echo $value["ct_photo_file_type"]?>"/><?php endif;?></td>
+			<td><?php if($value["img"]):?><img width="100" src="../../files/images/ct_photos/<?php echo $value["img"]?>"/><?php endif;?></td>
 			<td><?php echo $value["name"]?></td>
 			<td>Страны</td>
 			<td><?php echo $Model->dictionaries->buld_table[$value["type_id"]]["dict_name"]; ?></td>
 			<td><?php echo $Model->dictionaries->buld_table[$value["type_inner_id"]]["dict_name"]; ?></td>
 			<td><?php echo $value["date_start"]?></td>
+			<td><?php echo ($value["is_hot"] ? "Да" : "Нет")?></td>
 			<td><?php echo ($value["is_show"] ? "Да" : "Нет")?></td>
-			<td><?php echo ($value["is_hot"] == "show" ? "Да" : "Нет")?></td>
 			<td><a href="#" onclick="TEdit('DMN_Tours', 'getItem', '<?php echo $value["tour_id"]?>')" title="Просмотр/Редактирование">Просмотр/Редактирование</a> <a href="#" onclick="TDelete('DMN_Tours', 'delete', '<?php echo $value["tour_id"]?>')" title="Удалить">Удалить</a></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
 <?php else: ?>
-<b>No data!</b>
+<b>Ничего не найдено по Вашему запросу!</b>
 <?php endif; ?>
 
 

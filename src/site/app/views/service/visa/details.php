@@ -1,1 +1,1 @@
-details
+<?php devLogs::_printr($Model->item)?>

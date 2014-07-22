@@ -24,15 +24,25 @@ if ($_GET ['ct_id']) {
 										   left join {$tbl_dictionaries} d on d.dict_id  = ct.ct_photo_type_id 
 										   where ct.ct_id = '{$_GET ['ct_id']}' and ct.lang_id = {$_COOKIE[lang_id]} and d.lang_id = {$_COOKIE[lang_id]}
 										   order by ct.ct_photo_order" );
-	if ($cl_photo_class->table) {
-		#подстановка позиций в шаблон вывода логотипов 		
-		$cl_Module = new ModuleSite ( $ModuleTemplate, array (), $dictionaries );
-		$RetPhoto = $cl_Module->Handler_Template_Html ( 'photo_list_block', $cl_photo_class->table );
-	} else {
-		$RetPhoto = "<div class=\"errOutputShow\">Нет добавленных изображений!</div>";
-	}
-	echo $RetPhoto;
 }
 else die("no catalog position");
 ?>
  
+<?php if($cl_photo_class->table):?>
+	<table class="table-list">
+	<tr class="headings">
+		<td></td>
+		<td>Изображение</td>
+		<td>Тип</td>
+		<td>Позиция</td>
+	</tr>
+		<?php foreach ($cl_photo_class->table as $key => $value):?>
+		<tr>
+			<td width="10"><input type="radio" value="<?php echo $value["ct_photo_id"]?>" name="ct_photo_id"/></td>
+			<td class="TdListLogoALignCenter"><img width="80" src="../../files/images/ct_photos/<?php echo $value["ct_photo_id"]?>.<?php echo $value["ct_photo_file_type"]?>" width="100" alt="" title=""></td>
+			<td><?php echo $value["dict_name"]?></td>
+			<td><?php echo $value["ct_photo_order"]?></td>
+		</tr>
+		<?php endforeach;?>
+	</table>
+<?php endif;?>

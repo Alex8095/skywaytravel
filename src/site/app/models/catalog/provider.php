@@ -193,4 +193,16 @@ class catalogProviderClass extends providerClass {
 			return $res;
 	}
 
+	public function getItemParam($params) {
+		$ret = "";
+		$query = "";
+		if ($params ["ct_id"])
+			$query .= " and ct_id = {$params[ct_id]}";
+		if ($params ["ct_url"])
+			$query .= " and ct_url = '{$params[ct_url]}'";
+		$ret = $this->mysql->select_table_id ( sprintf ( "where 1 = 1 %s limit 1", $query ) );
+		return $ret;
+	}
+
 }
+
